@@ -32,7 +32,7 @@
 </head>
 
 <body>
-
+<div id="inicial">
   <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-dark  fixed-top" style="padding: 10px; background-color: teal;">
     <div class="container">
@@ -69,16 +69,8 @@
       <div class="col-lg-3" style="font-family: pixel;">
 
         <h1 class="my-4">Categorias</h1>
-        <div class="list-group">
-          <a href="#" class="list-group-item">Todas categorias</a>
-          <a href="#" class="list-group-item">Filmes</a>
-          <a href="#" class="list-group-item">Séries</a>
-          <a href="#" class="list-group-item">Memes</a>
-          <a href="#" class="list-group-item">Times</a>
-          <a href="#" class="list-group-item">Desenhos</a>
-          <a href="#" class="list-group-item">Engraçados</a>
-          <a href="#" class="list-group-item">Times</a>
-          <a href="#" class="list-group-item">Comemorativos</a>
+        <div class="list-group" v-for="item in categorias">
+          <a href="#" class="list-group-item">{{ item.nomeCategoria }}</a>
         </div>
 
       </div>
@@ -222,7 +214,7 @@
 
   </div>
   <!-- /.container -->
-
+</div>
   <!-- Footer -->
   <footer class="py-5 bg-dark">
     <div class="container">
@@ -232,8 +224,30 @@
   </footer>
 
   <!-- Bootstrap core JavaScript -->
+  <script src="resources/js/vue.js"></script>
+  <script src="resources/js/axios.min.js"></script>
   <script src="resources/vendor/jquery/jquery.min.js"></script>
   <script src="resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    new Vue({
+      el:'#inicial',
+      data:{
+        categorias: []
+      },
+      created : function() {
+        const vm = this;
+        axios.get('rs/categoria/todasCategorias').then(function(response){
+          vm.categorias = response.data;
+          console.log(response);
+        });
+      },
+      methods : {
+
+      }
+
+    });
+  </script>
 
 </body>
 
