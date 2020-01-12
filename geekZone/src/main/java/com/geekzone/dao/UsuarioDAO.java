@@ -72,6 +72,53 @@ public class UsuarioDAO {
 		}
 	
 	}
+
+	public Usuario login(Usuario usuario) throws Exception {
+		Usuario login = null;
+		Connection db = ConnectionManager.getDBConnection();
+		PreparedStatement pstmt = null;
+
+		ResultSet result = null;
+
+
+		String senha = usuario.getSenha();
+		MessageDigest m=MessageDigest.getInstance("MD5");
+		m.update(senha.getBytes(),0,senha.length());
+		String criptografia = new BigInteger(1,m.digest()).toString(16);
+
+
+		pstmt = db.prepareStatement("select * from cliente");
+
+		try {
+			result = pstmt.executeQuery();
+			while (result.next()) {
+				if (usuario.getEmail().equals(result.getString("email"))
+						&& criptografia.equals(result.getString("senha"))) {
+					login = new Usuario();				
+					login.setNomeCompleto(result.getString("nomeCompleto"));
+					login.setCpf(result.getString("cpf"));
+					login.setNascimento(result.getString("nascimento"));
+					login.setSexo(result.getString("sexo"));
+					login.setCep(result.getString("cep"));
+					login.setCidade(result.getString("cidade"));
+					login.setBairro(result.getString("bairro"));
+					login.setEstado(result.getString("estado"));
+					login.setNumero(result.getString("numero"));
+					login.setComplemento(result.getString("complemento"));
+					login.setTelefone(result.getString("telefone"));
+					login.setCelular(result.getString("celular"));
+					login.setEmail(result.getString("email"));
+				}
+			}
+		} catch (Exception e) {
+			throw new Exception(e);
+		} finally {
+			if (pstmt != null)
+				pstmt.close();
+			db.close();
+		}
+		return login;
+	}
 	
 
 }

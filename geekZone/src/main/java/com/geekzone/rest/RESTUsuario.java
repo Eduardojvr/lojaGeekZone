@@ -48,6 +48,25 @@ public class RESTUsuario {
 		return Response.ok().entity("Usuário cadastrado com sucesso!").build();	
 	}
 
+	@POST
+	@Path("/login")
+	@Produces({ MediaType.APPLICATION_JSON })
+	@Consumes({ MediaType.APPLICATION_JSON })
+	public Response login(Usuario usuario) {
+		UsuarioDAO dao = new UsuarioDAO();
+		try {
+			Usuario login = dao.login(usuario);
+
+			if (login != null) {
+				request.getSession().setAttribute("logado", true);
+				request.getSession().setAttribute("usuario", login);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+			return Response.serverError().entity("Erro ao logar!").build();	
+		}
+		return Response.ok().entity("Usuário logado com sucesso!").build();	
+	}
 }
 
 
