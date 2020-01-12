@@ -337,7 +337,9 @@ input[type="submit"]:hover{
         login : function(){
           const vm = this;
           axios.post('rs/usuario/login', vm.usuario).then(function(response){
-            location.href = "pages/perfil.html";
+            if(response.status == 200){
+              window.location.href = "pages/perfil.html";
+            }
           }).catch(function(erro){
             alert("Não foi possível logar!");
           });

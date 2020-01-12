@@ -7,6 +7,38 @@
     <title>GeekZone</title>
 </head>
 <body>
-    <h1>Logado!</h1>
+    <div id="perfil">
+        <h1>Logado!</h1>
+        <button @click="logout();">Deslogar</button>
+    </div>
+
+    <script src="../resources/js/vue.js"></script>
+    <script src="../resources/js/axios.min.js" ></script>
+
+    <script>
+        new Vue({
+            el:'#perfil',
+            data:{
+
+            },
+            created: function(){
+
+            },
+            methods:{
+                logout : function(){
+                    const vm = this;
+                    axios.post('../rs/usuario/logout').then(function(response){
+                        console.log(response);
+                        alert("Logout realizado com sucesso!");
+                    }).catch(function(erro){
+                        alert("Erro ao realizar logout!");
+                    });
+                }
+            }
+
+        });
+
+    </script>
+
 </body>
 </html>
