@@ -43,9 +43,9 @@ public class RESTUsuario {
 			dao.cadastra(usuario);
 		}catch(Exception e) {
 			e.printStackTrace();
+			return Response.serverError().entity("Erro ao cadastrar!").build();	
 		}
-		return Response.ok().build();
-		
+		return Response.ok().entity("Usuário cadastrado com sucesso!").build();	
 	}
 
 }

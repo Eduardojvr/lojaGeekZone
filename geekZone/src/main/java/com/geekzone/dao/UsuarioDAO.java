@@ -16,18 +16,18 @@ public class UsuarioDAO {
 		
 	}
 	
-	public Boolean cadastra(Usuario usuario) throws Exception {
+	public void cadastra(Usuario usuario) throws Exception {
 		Connection db = ConnectionManager.getDBConnection();
 		PreparedStatement pstmt = null;
 
 		StringBuilder sql = new StringBuilder();
 
 		String senha = usuario.getSenha();
-		MessageDigest m=MessageDigest.getInstance("MD5");
+		MessageDigest m = MessageDigest.getInstance("MD5");
 		m.update(senha.getBytes(),0,senha.length());
 		String criptografia = new BigInteger(1,m.digest()).toString(16);
 
-		sql.append("INSERT INTO usuario ");
+		sql.append("INSERT INTO cliente ");
 		sql.append(" ( ");
 		sql.append(" nomeCompleto, ");
 		sql.append(" cpf, ");
@@ -61,7 +61,7 @@ public class UsuarioDAO {
 			pstmt.setString(11, usuario.getTelefone());
 			pstmt.setString(12, usuario.getCelular());
 			pstmt.setString(13, usuario.getEmail());
-			pstmt.setString(14, senha);
+			pstmt.setString(14, criptografia);
 
 			pstmt.executeUpdate();
 
@@ -70,7 +70,6 @@ public class UsuarioDAO {
 				pstmt.close();
 			db.close();
 		}
-		return true;
 	
 	}
 	

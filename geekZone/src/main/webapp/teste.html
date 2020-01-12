@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Geekaneca</title>
+    </head>
+	<body>
+	<div id="exemplo">
+		<form action="aguarde.html" method="POST" ref="myform">
+		</form>
+	</div>	
+		<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+		<script src="resources/js/axios.min.js" ></script>
+		<script>
+		new Vue({
+			el:'#exemplo',
+			data:{
+				id: ''
+			},
+			created: function(){
+							
+			},
+			methods:{
+				adc : function(foo){
+					this.$refs.myform.appendChild(foo);
+				}
+			},
+			mounted() {
+				const vm = this;
+				let foo = document.createElement('script');  
+				foo.setAttribute("src","https://www.mercadopago.com.br/integrations/v1/web-payment-checkout.js");
+
+				axios.get('rs/pagamento/pagaItem').then(function(response){
+					vm.id = response.data;
+					console.log(vm.id);
+					foo.setAttribute("data-preference-id", response.data);
+					vm.adc(foo);					
+				});
+
+			}
+		});
+		</script>
+	</body>
+</html>

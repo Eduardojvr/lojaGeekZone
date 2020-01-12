@@ -4,28 +4,21 @@ import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
-import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.ResponseBuilder;
 
 import com.geekzone.dao.CategoriaDAO;
-import com.geekzone.dao.UsuarioDAO;
-import com.geekzone.entity.Usuario;
+import com.geekzone.dao.ProdutosDAO;
 import com.geekzone.entity.Categoria;
+import com.geekzone.entity.Produto;
+import com.geekzone.entity.Usuario;
 
-import java.io.IOException;
-
-
-
-@Path("/categoria")
-public class RESTCategoria {
-
+@Path("/produto")
+public class RESTProduto {
 	@Context
 	private HttpServletRequest request;
 
@@ -37,18 +30,18 @@ public class RESTCategoria {
 	}
 
 	@GET
-	@Path("/todasCategorias")
+	@Path("/todosProdutos")
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response cadastro(Usuario usuario) {
-		CategoriaDAO dao = new CategoriaDAO();
-		ArrayList <Categoria> array = null;
+	public Response todosProdutos() {
+		ProdutosDAO dao = new ProdutosDAO();
+		ArrayList <Produto> array = null;
 		try {
-			array = dao.todasCategorias();
+			array = dao.todosProdutos();
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
 		return Response.ok().entity(array).build();
-
+		
 	}
 
 }

@@ -1,0 +1,488 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+  
+  <head>
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    
+    <title>GeekZone</title>
+    
+    <!-- Bootstrap core CSS -->
+    <link href="resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Custom styles for this template -->
+    <link href="resources/css/shop-homepage.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+    <style>
+  @font-face {
+    font-family: 'game';
+    src: url('resources/fonts/game.ttf');
+  }
+  
+  @font-face {
+    font-family: 'pixel';
+    /* src: url('../resources/fonts/PixelOperatorHB.ttf'); */
+    src: url('resources/fonts/PixelOperatorMono.ttf');
+  }
+
+  /* .group{
+    padding-top: 10px;
+    padding-left: 40%;
+
+  }
+
+
+  input{
+    position: relative;
+    width: auto;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+  }
+
+  .titulo{
+    padding-left: 50%;
+    font-family: game;
+    padding-bottom: 5%;
+  }
+
+  .formulario{
+      padding: 20px;
+      border-radius: 30px;
+  } */
+
+  /* *, *:before, *:after { 
+  margin:0;
+  padding:0;
+  font-family: Arial,sans-serif;
+} */
+
+/* body{
+  margin:10px;
+} */
+
+/* a{
+  text-decoration: none;
+} */
+
+/* esconde as ancoras da tela */
+/* a.links{
+  display: none;
+} */
+
+/* content que contem os formulários */
+.formulario{
+    padding-left: 25%;
+  /* width: 500px;
+  margin: 0px auto;
+  position: relative;    */
+}
+
+/* formatando o cabeçalho dos formulários */
+h1{
+  font-size: 36px;
+  color: #066a75;
+  padding: 10px 0;
+  font-family: game;
+  font-weight: bold;
+  text-align: center;
+  padding-bottom: 30px;
+}
+h1:after{
+  content: ' ';
+  display: block;
+  width: 100%;
+  height: 2px;
+  margin-top: 10px;
+  background: -webkit-linear-gradient(left, rgba(147,184,189,0) 0%,rgba(147,184,189,0.8) 20%,rgba(147,184,189,1) 53%,rgba(147,184,189,0.8) 79%,rgba(147,184,189,0) 100%); 
+  background: linear-gradient(left, rgba(147,184,189,0) 0%,rgba(147,184,189,0.8) 20%,rgba(147,184,189,1) 53%,rgba(147,184,189,0.8) 79%,rgba(147,184,189,0) 100%); 
+}
+
+p{
+  margin-bottom:15px;
+}
+p:first-child{
+  margin: 0px;
+}
+label{
+  color: #405c60;
+  position: relative;
+}
+
+/**** advanced input styling ****/
+/* placeholder */
+::-webkit-input-placeholder  {
+  color: #bebcbc; 
+  font-style: italic;
+}
+input:-moz-placeholder,
+textarea:-moz-placeholder{
+  color: #bebcbc;
+  font-style: italic;
+} 
+input {
+  outline: none;
+}
+
+input:not([type="checkbox"]){
+  width: 95%;
+  margin-top: 4px;
+  padding: 10px;    
+  border: 1px solid #b2b2b2;
+  
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  
+  -webkit-box-shadow: 0px 1px 4px 0px rgba(168, 168, 168, 0.6) inset;
+  box-shadow: 0px 1px 4px 0px rgba(168, 168, 168, 0.6) inset;
+  
+  -webkit-transition: all 0.2s linear;
+  transition: all 0.2s linear;
+}
+
+/*estilo do botão submit */
+input[type="submit"]{
+  width: 95%!important;
+  cursor: pointer;  
+  background:teal;
+  padding: 8px 5px;
+  color: #fff;
+  font-size: 20px;  
+  border: 1px solid #fff;   
+  margin-bottom: 10px;  
+  text-shadow: 0 1px 1px #333;
+  
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  
+  transition: all 0.2s linear;
+}
+input[type="submit"]:hover{
+  background: #4ab3c6;
+}
+
+/*marcando os links para mudar de um formulário para outro */
+.link{
+  position: absolute;
+  background: #e1eaeb;
+  color: #7f7c7c;
+  left: 0px;
+  height: 20px;
+  width: 440px;
+  padding: 17px 30px 20px 30px;
+  font-size: 16px;
+  text-align: right;
+  border-top: 1px solid #dbe5e8;
+
+  -webkit-border-radius: 0 0  5px 5px;
+  border-radius: 0 0  5px 5px;
+}
+.link {
+  font-weight: bold;
+  background: #f7f8f1;
+  padding: 6px;
+  color: rgb(29, 162, 193);
+  margin-left: 10px;
+  border: 1px solid #cbd518;
+
+  -webkit-border-radius: 4px;
+  border-radius: 4px;  
+
+  -webkit-transition: all 0.4s linear;
+  transition: all 0.4s  linear;
+}
+.link a:hover {
+  color: #39bfd7;
+  background: #f7f7f7;
+  border: 1px solid #4ab3c6;
+}
+
+/* estilos para para ambos os formulários */
+#cadastro, 
+#login{
+  position: relative;
+  top: 0px;
+  width: 88%;   
+  padding: 18px 6% 60px 6%;
+  margin: 0 0 35px 0;
+  background: rgb(247, 247, 247);
+  border: 1px solid rgba(147, 184, 189,0.8);
+  
+  
+  -webkit-box-shadow: 5px;
+  border-radius: 15px;
+  
+  -webkit-animation-duration: 0.5s;
+  -webkit-animation-timing-function: ease;
+  -webkit-animation-fill-mode: both;
+
+  animation-duration: 0.5s;
+  animation-timing-function: ease;
+  animation-fill-mode: both;
+}
+
+#paracadastro:target ~ .content #cadastro,
+#paralogin:target ~ .content #login{
+  z-index: 2;
+  -webkit-animation-name: fadeInLeft;
+  animation-name: fadeInLeft;
+
+  -webkit-animation-delay: .1s;
+  animation-delay: .1s;
+}
+#registro:target ~ .content #login,
+#paralogin:target ~ .content #cadastro{
+  -webkit-animation-name: fadeOutLeft;
+  animation-name: fadeOutLeft;
+}
+
+/*fadeInLeft*/
+@-webkit-keyframes fadeInLeft {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateX(-20px);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: translateX(0);
+  }
+}
+
+@keyframes fadeInLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/*fadeOutLeft*/
+@-webkit-keyframes fadeOutLeft {
+  0% {
+    opacity: 1;
+    -webkit-transform: translateX(0);
+  }
+  100% {
+    opacity: 0;
+    -webkit-transform: translateX(-20px);
+  }
+}
+
+@keyframes fadeOutLeft {
+  0% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+}
+
+
+</style>
+
+</head>
+
+<body>
+  
+  <div id="cadastroUsuario">
+    
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark  fixed-top" style="padding: 10px; background-color: teal;">
+    <div class="container">
+      <a style="font-size: 30px; font-family: game;" class="navbar-brand" href="#">GeekZone</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto" style="font-family: pixel; font-size: 20px;">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">Loja</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="sobre.html">Sobre</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="contato.html">Contato</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="cadastro.html">Cadastro</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="login.html">Login</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+<br><br>
+  <!-- Page Content -->
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-11 formulario">
+              <div id="cadastro">
+                  <h1>Cadastro</h1> 
+                  
+                  <p> 
+                    <label for="nome_cad">Seu nome</label>
+                    <input id="nome_cad" name="nome_cad" type="text" placeholder="" v-model="usuario.nomeCompleto"/>
+                  </p>
+                  
+                  <p> 
+                    <label for="cpf_cad">Seu cpf</label>
+                    <input id="cpf_cad" name="cpf_cad" type="text" placeholder="" v-model="usuario.cpf"/> 
+                  </p>
+  
+                  <p> 
+                    <label for="dtNasc_cad">Data de nascimento</label>
+                    <input id="dtNasc_cad" name="dtNasc_cad" type="date" placeholder="" v-model="usuario.nascimento"/> 
+                  </p>
+
+                  <p> 
+                    <div class="col-md-8" > 
+                      <div>
+                        <label for="">Sexo</label>
+                      </div>
+                      <label for="radios-0" > Feminino
+                      <input name="sexo" v-model="usuario.sexo" id="sexo" value="F" type="radio">
+                      </label> 
+                      <label  for="radios-1"> Masculino
+                      <input name="sexo" id="sexo" value="M" type="radio" v-model="usuario.sexo">
+                      </label>
+                    </div>
+                  </p>
+                  
+                  <p> 
+                    <label for="cep_cad">Cep</label>
+                    <input id="cep_cad" name="cep_cad" type="text" placeholder="" v-model="usuario.cep"/>
+                  </p>
+
+                  <p> 
+                    <label for="cidade_cad">Cidade</label>
+                    <input id="cidade_cad" name="cidade_cad" type="text" placeholder="" v-model="usuario.cidade"/>
+                  </p>
+
+                  <p> 
+                    <label for="bairro_cad">Bairro</label>
+                    <input id="bairro_cad" name="bairro_cad" type="text" placeholder=""  v-model="usuario.bairro"/>
+                  </p>
+
+                  <p> 
+                    <label for="numero_cad">Numero</label>
+                    <input id="numero_cad" name="numero_cad" type="text" placeholder="" v-model="usuario.numero"/>
+                  </p>
+
+                  <p> 
+                    <label for="estado_cad">Estado</label>
+                    <select name="" id=""  v-model="usuario.estado">
+                      <option v-for="estado in estados" v-bind:value="estado">{{ estado }}</option>
+                    </select>
+                  </p>
+
+
+                  <p> 
+                    <label for="complemento_cad">Complemento</label>
+                    <input id="complemento_cad" name="complemento_cad" type="text" placeholder="" v-model="usuario.complemento"/>
+                  </p>
+
+                  <p> 
+                    <label for="telefone_cad">Telefone</label>
+                    <input id="telefone_cad" name="telefone_cad" type="text" placeholder="" v-model="usuario.telefone"/>
+                  </p>
+
+                  <p> 
+                    <label for="celular_cad">Celular</label>
+                    <input id="celular_cad" name="celular_cad" type="text" placeholder="" v-model="usuario.celular"/>
+                  </p>
+                  
+                  <p> 
+                    <label for="email_cad">Seu e-mail</label>
+                    <input id="email_cad" name="email_cad" type="email" placeholder="" v-model="usuario.email"/> 
+                  </p>
+                  
+                  <p> 
+                    <label for="senha_cad">Sua senha</label>
+                    <input id="senha_cad" name="senha_cad" type="password" placeholder="" v-model="usuario.senha"/>
+                  </p>
+                  <!-- <button @click="teste();" >Cadastrar</button> -->
+                  <input type="submit" value="Cadastrar" @click="cadastro();">
+              </div>
+      </div>
+    </div>
+  </div>
+
+ 
+  <!-- /.container -->
+</div>
+  <!-- Footer -->
+  <footer class="py-5 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; GeekZone 2020</p>
+    </div>
+    <!-- /.container -->
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="resources/js/vue.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+  <script src="https://apis.google.com/js/client.js"></script>
+  <script src="resources/js/axios.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+  <script src="resources/vendor/jquery/jquery.min.js"></script>
+  <script src="resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    new Vue({
+      el:'#cadastroUsuario',
+      data:{
+        usuario: {
+            nomeCompleto: '',
+            cpf: '',
+            nascimento: '',
+            sexo: '',
+            cep: '',
+            cidade: '',
+            bairro: '',
+            estado: '',
+            numero: '',
+            complemento: '',
+            telefone: '',
+            celular: '',
+            email: '',
+            senha: ''
+        },
+        estados: ['DF', 'SP']
+      },
+      created : function() {
+        
+
+        
+      },
+      methods : {
+        cadastro : function(){
+          const vm = this;
+          axios.post('rs/usuario/cadastro', vm.usuario).then(function(response){
+            alert("Usuário cadastrado com sucesso!");
+            location.href = "login.html";
+          }).catch(function(erro){
+            alert("Não foi possível cadastrar!");
+          });
+        }
+     
+      }
+    });
+  </script> 
+
+</body>
+
+</html>
