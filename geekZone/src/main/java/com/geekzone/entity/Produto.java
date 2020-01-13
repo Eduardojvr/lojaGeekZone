@@ -8,7 +8,14 @@ public class Produto {
 	private String qtd;
 	private String preco;
 	private String descricao;
-	private String linkImg;
+	private String linkImg1;
+	private String linkImg2;
+	private String linkImg3;
+	private String peso;
+	private String altura;
+	private String largura;
+	private String comprimento;
+	
 	public String getIdProduto() {
 		return idProduto;
 	}
@@ -51,11 +58,48 @@ public class Produto {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-	public String getLinkImg() {
-		return linkImg;
+
+	public String getPeso() {
+		return peso;
 	}
-	public void setLinkImg(String linkImg) {
-		this.linkImg = linkImg;
+	public void setPeso(String peso) {
+		this.peso = peso;
+	}
+	public String getAltura() {
+		return altura;
+	}
+	public void setAltura(String altura) {
+		this.altura = altura;
+	}
+	public String getLargura() {
+		return largura;
+	}
+	public void setLargura(String largura) {
+		this.largura = largura;
+	}
+	public String getComprimento() {
+		return comprimento;
+	}
+	public void setComprimento(String comprimento) {
+		this.comprimento = comprimento;
+	}
+	public String getLinkImg1() {
+		return linkImg1;
+	}
+	public void setLinkImg1(String linkImg1) {
+		this.linkImg1 = linkImg1;
+	}
+	public String getLinkImg2() {
+		return linkImg2;
+	}
+	public void setLinkImg2(String linkImg2) {
+		this.linkImg2 = linkImg2;
+	}
+	public String getLinkImg3() {
+		return linkImg3;
+	}
+	public void setLinkImg3(String linkImg3) {
+		this.linkImg3 = linkImg3;
 	}
 	
 	

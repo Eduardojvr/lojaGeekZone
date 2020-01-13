@@ -30,9 +30,28 @@
     src: url('resources/fonts/PixelOperatorMono.ttf');
   }
 
-  h5{
-    border-bottom: chartreuse;
+  
+  #cadastro {
+    font-family: pixel;
+    font-size: 25px;
+    padding-left: 15%;
   }
+
+input#nome_cad{
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  width: 90%;
+  font-size: 20px;
+  color: #696969;
+}
+
+input#preco{
+  border: none;
+  color: green;
+  width: 10%;
+}
+
 
 </style>
 
@@ -41,6 +60,132 @@
 <body>
   
   <div id="inicial">
+
+
+
+<div  style="overflow-y: auto;" class="modal fade" id="modalConfirma" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+aria-hidden="true">
+<div class="modal-dialog modal-lg" role="document">
+  <div class="modal-content">
+    <div class="modal-header d-flex justify-content-center" style="background-color: #33b5e5; font-family: pixel; color:whitesmoke; font-size: 28px;">
+      <div style="padding-left: 40%;">
+        <p class="heading">Confirmação</p>
+      </div>
+      <button type="button" class="close" data-dismiss="modal" style="text-align: right; color: whitesmoke;"
+          aria-label="Close" style="text-align: right; padding-right: 20px; padding-top: 10px;">
+        <span aria-hidden="true">×</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="row" style="font-family: pixel;">
+        <div class="col-lg-11 formulario">
+            <br>
+            <div class="modal-body">
+              <h4 style="color: #696969;">Olá cliente, faltam poucos passos para concluir sua compra. Clique em pagar para
+                dar continuidade.
+              </h4>
+            </div>
+        </div>
+        <div class="card-body">
+          <div class="text-center">
+            <form action="aguarde.html" method="POST" ref="myform"></form>      
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+    <div  style="overflow-y: auto;" class="modal fade" id="modalDadosPessoais" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header d-flex justify-content-center" style="background-color: #33b5e5; font-family: pixel; color:whitesmoke; font-size: 28px;">
+          <div style="padding-left: 30%;">
+            <p class="heading">Informações pessoais</p>
+          </div>
+          <button type="button" class="close" data-dismiss="modal" style="text-align: right; color: whitesmoke;"
+              aria-label="Close" style="text-align: right; padding-right: 20px; padding-top: 10px;">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-lg-11 formulario">
+              <div id="cadastro">
+                <br>
+                <p> 
+                  <label for="nome_cad">Nome</label><br>
+                  <input id="nome_cad" name="nome_cad" type="text" placeholder="" required/>
+                </p>
+                <p> 
+                  <label for="nome_cad">Cpf</label><br>
+                  <input id="nome_cad" name="nome_cad" type="text" placeholder="" required/>
+                </p>
+                <p> 
+                  <label for="nome_cad">Email</label><br>
+                  <input id="nome_cad" name="nome_cad" type="email" placeholder="" required/>
+                </p>
+                <p> 
+                  <label for="nome_cad">Preço (un)</label><br>
+                  <span>R$</span>
+                  <input id="preco" name="nome_cad" type="email" placeholder="" v-bind:value="selecionado.preco" readonly/>
+
+                </p>
+                <p> 
+                  <label for="nome_cad">Quantidade</label><br>
+                  <input id="nome_cad" name="nome_cad" type="number" v-bind:max="selecionado.qtd" min="1" placeholder="" style="width: 30%;" required/>
+                </p>
+                <p> 
+                  <label for="nome_cad">Telefone</label><br>
+                  <input id="nome_cad" name="nome_cad" type="text" placeholder="" required/>
+                </p>
+                <p> 
+                  <label for="nome_cad">Cep</label><br>
+                  <input id="nome_cad" name="nome_cad" type="text" placeholder="" required/>
+                </p>
+                <p> 
+                  <label for="nome_cad">Cidade</label><br>
+                  <input id="nome_cad" name="nome_cad" type="text" placeholder="" required/>
+                </p>
+                <p> 
+                  <label for="nome_cad">Rua</label><br>
+                  <input id="nome_cad" name="nome_cad" type="text" placeholder="" required/>
+                </p>
+                <p> 
+                  <label for="nome_cad">Nº Residência</label><br>
+                  <input id="nome_cad" name="nome_cad" type="text" placeholder="" required/>
+                </p>
+                <p> 
+                  <label for="nome_cad">Complemento</label><br>
+                  <input id="nome_cad" name="nome_cad" type="text" placeholder="" required/>
+                </p>
+                <p> 
+                  <label for="nome_cad">Bairro</label><br>
+                  <input id="nome_cad" name="nome_cad" type="text" placeholder="" required/>
+                </p>
+                <p> 
+                  <label for="nome_cad">Estado</label><br>
+                  <input id="nome_cad" name="nome_cad" type="text" placeholder="" required/>
+                </p>
+       
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="text-center">
+                <button type="button"  @click="geraCheckout();"  class="btn btn-primary" style="border: none;  padding: 10px 23px 10px 23px;">Próximo</button>
+                <button type="button"  data-dismiss="modal"  class="btn btn-danger" style="border: none;  padding: 10px 23px 10px 23px;">Cancelar</i></button>
+              </div>
+            </div>
+      
+       
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
     
     <!-- Modal: modalQuickView -->
     <div class="modal fade" id="modalCompra" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -55,7 +200,7 @@
           <div class="row">
             <div class="col-lg-5">
               <img class="d-block w-100"
-              v-bind:src="selecionado.linkImg"
+              v-bind:src="selecionado.linkImg1"
               alt="imagem">
               <!--Carousel Wrapper-->
               <!-- <div id="carousel-thumb" class="carousel slide carousel-fade carousel-thumbnails"
@@ -153,7 +298,7 @@
               <div class="card-body">
                 <div class="text-center">
                   <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
-                  <button class="btn btn-primary" style="padding: 10px 20px 10px 20px;">Comprar agora</button>
+                  <button class="btn btn-primary" style="padding: 10px 20px 10px 20px;" @click="controleModal();">Comprar agora</button>
                   <button type="button" class="btn btn-primary" style="background-color: seagreen; border: none;  padding: 10px 23px 10px 23px;"><i class="fa fa-cart-plus" style="font-size:25px;"></i></button>
                 </div>
               </div>
@@ -248,7 +393,7 @@
 
           <div class="col-lg-4 col-md-6 mb-4" v-for="item in itens">
             <div class="card h-100" @click=compra(item);>
-              <img class="card-img-top" v-bind:src="item.linkImg" alt="">
+              <img class="card-img-top" v-bind:src="item.linkImg1" alt="">
               <hr>
               <div class="card-body">
                 <h4 class="card-title">
@@ -311,7 +456,26 @@
           nVlValorDeclarado:"",
           sCdAvisoRecebimento:"n"
         },
-        frete: {}
+        frete: {},
+        compraCliente: {
+          nomeComprador:'',
+          cpfComprador: '',
+          emailComprador: '',
+          valorUnidade: '',
+          qtdComprada: '',
+          idProduto: '',
+          nomeProduto: '',
+          telefoneComprador: '',
+          cepComprador: '',
+          cidadeComprador: '',
+          ruaComprador: '',
+          numeroCasa: '',
+          complementoEndereco: '',
+          bairro: '',
+          estadoComprador: ''
+        },
+        idCheckout: ''
+
       },
       created : function() {
         const vm = this;
@@ -336,10 +500,33 @@
         
             axios.post('rs/frete/calculaFrete', vm.dadosFrete).then(function(response){
                 vm.frete = response.data["cServico"];
-                console.log(vm.frete);
             });
+        },
+        adicionaCheckout : function(foo){
+					this.$refs.myform.appendChild(foo);
+          $("#modalDadosPessoais").modal("hide");
+          $("#modalConfirma").modal("show");
+				},
+        controleModal : function(){
+          $("#modalCompra").modal("hide");
+          $("#modalDadosPessoais").modal("show");
+        },
+        geraCheckout : function(){
+          const vm = this;
+				  let foo = document.createElement('script');  
+				  foo.setAttribute("src","https://www.mercadopago.com.br/integrations/v1/web-payment-checkout.js");
+				  axios.get('rs/pagamento/pagaItem').then(function(response){
+					  vm.id = response.data;
+					  foo.setAttribute("data-preference-id", response.data);
+					  vm.adicionaCheckout(foo);					
+				  });
+        },
+        mercadoPago : function(){
+
         }
-      }
+      },
+     
+     
     });
   </script> 
 

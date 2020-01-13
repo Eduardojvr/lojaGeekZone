@@ -32,7 +32,13 @@ public class ProdutosDAO {
 				 produto.setQtd(result.getString("qtd")); 
 				 produto.setPreco(result.getString("preco")); 
 				 produto.setDescricao(result.getString("descricao")); 
-				 produto.setLinkImg(result.getString("linkImg")); 
+				 produto.setLinkImg1(result.getString("linkImg1")); 
+				 produto.setLinkImg2(result.getString("linkImg2")); 
+				 produto.setLinkImg3(result.getString("linkImg3")); 
+				 produto.setPeso(result.getString("peso")); 
+				 produto.setAltura(result.getString("altura")); 
+				 produto.setLargura(result.getString("largura")); 
+				 produto.setComprimento(result.getString("comprimento")); 
 				 arrayList.add(produto);
 			}
 
