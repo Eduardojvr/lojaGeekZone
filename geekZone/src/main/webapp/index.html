@@ -30,6 +30,10 @@
     src: url('resources/fonts/PixelOperatorMono.ttf');
   }
 
+  h5{
+    border-bottom: chartreuse;
+  }
+
 </style>
 
 </head>
@@ -139,6 +143,12 @@
                 <input type="text" class="form-control" placeholder="Digite o cep do destino" v-model="dadosFrete.sCepDestino" aria-label="Username" aria-describedby="basic-addon1">
                 <button class="btn btn-primary" @click="calculaFrete();">Calcular Frete</button>
               </div>  
+                  <div v-if="frete.ValorSemAdicionais != null && frete.MsgErro==''">
+                    <span style="color: rgb(9, 126, 25);">Valor do frete: 𝐑$ {{ frete.ValorSemAdicionais }} <br> Tempo estimado para entrega: {{ frete.PrazoEntrega }} dias</span>
+                  </div>
+                  <div v-else>
+                    <span style="color: rgb(126, 13, 9);"> {{ frete.MsgErro }}</span>
+                  </div>
               <!-- Add to Cart -->
               <div class="card-body">
                 <div class="text-center">
@@ -198,8 +208,11 @@
         <div class="list-group dropdown" v-for="item in categorias">
           <a href="#" class="list-group-item">{{ item.nomeCategoria }}</a>
         </div>
+        <br>
+        <img src="resources/img/mp.png" alt="" style="height: 180px; width: 270px;">
 
       </div>
+
       <!-- /.col-lg-3 -->
 
       <div class="col-lg-9">
@@ -212,13 +225,13 @@
           </ol>
           <div class="carousel-inner" role="listbox">
             <div class="carousel-item active">
-              <img class="d-block img-fluid" src="https://www.bsr.org/images/sized/images/heroes/2016-02-01-future-internet-power-colo_hero-900x300.jpg" alt="First slide">
+              <img class="d-block img-fluid" src="resources/img/c1.png" alt="First slide">
             </div>
             <div class="carousel-item">
-              <img class="d-block img-fluid" src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTTPQ8l_mOAKya3f1ObjUpAP3JgSp8xIMSdcWZDKlbUX4IU8uJg" alt="Second slide">
+              <img class="d-block img-fluid" src="resources/img/c2.png" alt="Second slide">
             </div>
             <div class="carousel-item">
-              <img class="d-block img-fluid" src="https://www.bsr.org/images/sized/images/heroes/bsr-2018-08-28-ai-rights-based-blueprint-report-hero-900x300.jpg" alt="Third slide">
+              <img class="d-block img-fluid" src="resources/img/c3.png" alt="Third slide">
             </div>
           </div>
           <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -247,7 +260,6 @@
             </div>
           </div>
         </div>
-        <button type="button" @click="calculaFrete();">TESTE</button>
         <!-- /.row -->
 
       </div>
@@ -288,16 +300,16 @@
           sDsSenha:"",
           nCdServico:"41106",
           sCepOrigem:"72007815",
-          sCepDestino:"04843425",
+          sCepDestino:"",
           nVlPeso:"1",
           nCdFormato:"1",
           nVlComprimento:"20",
           nVlAltura:"15",
           nVlLargura:"15",
           nVlDiametro:"0",
-          sCdMaoPropria:"s",
+          sCdMaoPropria:"n",
           nVlValorDeclarado:"",
-          sCdAvisoRecebimento:"s"
+          sCdAvisoRecebimento:"n"
         },
         frete: {}
       },
@@ -324,6 +336,7 @@
         
             axios.post('rs/frete/calculaFrete', vm.dadosFrete).then(function(response){
                 vm.frete = response.data["cServico"];
+                console.log(vm.frete);
             });
         }
       }
