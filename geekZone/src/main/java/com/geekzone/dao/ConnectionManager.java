@@ -16,7 +16,9 @@ public class ConnectionManager implements Serializable {
 	private static final String DB_CONNECTION = "jdbc:mysql://localhost:3306/loja?serverTimezone=America/Sao_Paulo&allowPublicKeyRetrieval=true&useSSL=false";
 	private static final String DB_USER = "loja";
 	private static final String DB_PASSWORD = "loja";
-//	
+
+	
+
 
 
 	Connection dbConnection = null;

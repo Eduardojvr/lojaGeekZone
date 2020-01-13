@@ -45,13 +45,13 @@
 
   .dados-div{
     padding-bottom: 20px;
-    text-align: center;
   }
 
+
   button{
-      background-color:teal;
+      background-color: #007bff;
       color: whitesmoke;
-      border-radius: 5px;
+      border-radius: 0px;
       padding: 10px 40px 10px 40px;
   }
 
@@ -61,12 +61,28 @@
 
 .info{
     padding-bottom: 80px;
+    max-width: 100%;
+    font-family: pixel;
 }
 
 .atributo{
   color:teal;
   font-size: 22px;
+  text-align: justify;
+  padding: 5px;
+  background-color: rgba(163, 163, 163, 0.459);
+  border-radius: 5px;
 }
+
+input{
+  padding-left: 10px;
+  width: 250px;
+  
+}
+.img-prod{
+  padding-left: 22%;
+}
+
 </style>
 
 </head>
@@ -103,14 +119,22 @@
     </div>
   </nav>
 
-  <ul class="nav nav-tabs" id="myTab" role="tablist" style="padding-top: 30px; background-color: rgb(211, 211, 211); font-family: pixel; font-size: 20px;">
-    <li class="nav-item">
-      <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Meus dados</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Compras</a>
-    </li>
-  </ul>
+  <nav class="navbar navbar-expand-sm bg-dark navbar-dark sticky-top" style="padding: 20px;">
+ 
+    <ul class="nav" id="myTab" role="tablist" style="padding-top: 10px; page-break-after: auto;">
+      <li class="nav-item">
+        <a class="nav-link " id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true" style="color: snow; font-family: pixel; font-size: 20px;">Meus dados</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false" style="color: snow; font-family: pixel; font-size: 20px;">Compras</a>
+      </li>
+    </ul>
+    <!-- <input  style="width: 400px; border-radius: 0px;" type="text" class="form-control" placeholder="O que você procura?"  aria-label="Username" aria-describedby="basic-addon1">
+    <span style="border-radius: 0px; padding: 7px;" class="input-group-text" id="basic-addon1"><i class="fa fa-search" style="font-size:22px;"></i></span> -->
+  </nav> 
+
+
+
 
    <div class="container" style="text-align: center;">
     <div class="tab-content" id="myTabContent">
@@ -118,22 +142,23 @@
             <div style="padding-top: 6%;">
                 <img style="width: 200px; height: 200px;" src="../resources/img/masculino.png" alt="">
            </div>
+           <br>
            <div style="padding-top: 2%;" class="info">
                 <div class="dados-div">
-                    <span class="atributo">Nome:</span><input class="dados" type="text" readonly v-bind:value="usuario.nomeCompleto">
+                    <span class="atributo">👤</span><input class="dados" type="text" readonly v-bind:value="usuario.nomeCompleto">
                 </div>
                 <div class="dados-div">
-                    <span class="atributo">Email:</span><input class="dados" type="text" readonly v-bind:value="usuario.email">
+                    <span class="atributo">＠</span><input class="dados" type="text" readonly v-bind:value="usuario.email">
                 </div>
                 <div class="dados-div">
-                    <span class="atributo">Telefone:</span><input class="dados" type="text" readonly v-bind:value="usuario.telefone">
+                    <span class="atributo">📞</span><input class="dados" type="text" readonly v-bind:value="usuario.telefone">
                 </div>
                 <div class="dados-div">
-                    <span class="atributo">Celular:</span><input class="dados" type="text" readonly v-bind:value="usuario.celular">
+                    <span class="atributo">📱</span><input class="dados" type="text" readonly v-bind:value="usuario.celular">
                 </div>
-                <div class="buttons">
-                  <button>Alterar dados</button>
-                  <button>Alterar Senha</button>
+                <div class="buttons" style="padding-top: 20px;">
+                  <button class="btn btn-primary" style="padding: 10px 23px 10px 23px;">Alterar dados</button>
+                  <button class="btn btn-primary" style="padding: 10px 23px 10px 23px;">Nova senha</button>
                 </div>
             </div>
         </div>
@@ -144,19 +169,46 @@
        <div style="padding-top: 2%;" class="info">
         <div id="elemento" style="padding-left: 10%; padding-right: 10%;">
           <div style="border: 1px; border-color: rgb(224, 224, 224); border-style:solid; padding: 10px; text-align: left;" class="row">
-            <img src="../resources/img/b3.jpg" alt="" style="height: 150px; width: 250px;"><br>
-            <span style="padding-left: 15px;">Caneca rick and morty <br>
-            Quantidade: 2 <br> Valor total: R$ 200,00 <br> Status do envio: A caminho</span>
+            <div class="img-prod" style="padding-left: 35px;">
+              <img  class="im" src="https://nerdstore.com.br/wp-content/uploads/2018/07/caneca-magica-criativa-rick-and-morty.jpg" alt="" style="height: 150px; width: 150px;"><br>
+            </div>
+            <span style="padding-left: 15px; padding-top: 10px;"> 
+              <a style="color: #007bff; font-size: 25px;">Caneca rick and morty</a> <br>
+              <a >Quantidade: 2 </a> <br> 
+              <a >Valor total: R$ 200,00</a>  <br> 
+              <a >Rastreio: </a> <br>
+            </span>
+            <a style="padding-top: 5%; padding-left: 17%;">
+              <button type="button" style="background-color: #0069d9; border: none; border-radius: 0px; padding: 15px 50px 15px 50px;">Detalhes</button>
+            </a>
           </div><br>
           <div style="border: 1px; border-color: rgb(224, 224, 224); border-style:solid; padding: 10px; text-align: left;" class="row">
-            <img src="../resources/img/b3.jpg" alt="" style="height: 150px; width: 250px;"><br>
-            <span style="padding-left: 15px;">Caneca rick and morty <br>
-            Quantidade: 2 <br> Valor total: R$ 200,00 <br> Status do envio: A caminho</span>
+            <div class="img-prod" style="padding-left: 25px;">
+              <img  class="im" src="https://nerdstore.com.br/wp-content/uploads/2018/07/caneca-magica-criativa-rick-and-morty.jpg" alt="" style="height: 150px; width: 150px;"><br>
+            </div>
+            <span style="padding-left: 15px; padding-top: 10px;"> 
+              <a style="color: #007bff; font-size: 25px;">Caneca rick and morty</a> <br>
+              <a >Quantidade: 2 </a> <br> 
+              <a >Valor total: R$ 200,00</a>  <br> 
+              <a >Rastreio: </a> <br>
+            </span>
+            <a style="padding-top: 5%; padding-left: 17%;">
+              <button type="button" style="background-color: #0069d9; border: none; border-radius: 0px; padding: 15px 50px 15px 50px;">Detalhes</button>
+            </a>
           </div><br>
           <div style="border: 1px; border-color: rgb(224, 224, 224); border-style:solid; padding: 10px; text-align: left;" class="row">
-            <img src="../resources/img/b3.jpg" alt="" style="height: 150px; width: 250px;"><br>
-            <span style="padding-left: 15px;">Caneca rick and morty <br>
-            Quantidade: 2 <br> Valor total: R$ 200,00 <br> Status do envio: A caminho</span>
+            <div class="img-prod" style="padding-left: 25px;">
+              <img  class="im" src="https://nerdstore.com.br/wp-content/uploads/2018/07/caneca-magica-criativa-rick-and-morty.jpg" alt="" style="height: 150px; width: 150px;"><br>
+            </div>
+            <span style="padding-left: 15px; padding-top: 10px;"> 
+              <a style="color: #007bff; font-size: 25px;">Caneca rick and morty</a> <br>
+              <a >Quantidade: 2 </a> <br> 
+              <a >Valor total: R$ 200,00</a>  <br> 
+              <a >Rastreio: </a> <br>
+            </span>
+            <a style="padding-top: 5%; padding-left: 17%;">
+              <button type="button" style="background-color: #0069d9; border: none; border-radius: 0px; padding: 15px 50px 15px 50px;">Detalhes</button>
+            </a>
           </div><br>
      
 
@@ -190,7 +242,7 @@
       el:'#perfil',
       data:{
         usuario: {
-            nomeCompleto: 'Eduardo Rodrigues',
+            nomeCompleto: 'Eduardo Júnio Veloso Rodrigues',
             cpf: '',
             nascimento: '',
             sexo: '',

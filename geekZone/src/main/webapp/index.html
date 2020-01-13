@@ -29,6 +29,7 @@
     /* src: url('../resources/fonts/PixelOperatorHB.ttf'); */
     src: url('resources/fonts/PixelOperatorMono.ttf');
   }
+
 </style>
 
 </head>
@@ -142,8 +143,8 @@
               <div class="card-body">
                 <div class="text-center">
                   <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
-                  <button class="btn btn-primary" style="padding: 20px 50px 20px 50px;">Comprar agora</button>
-                  <button type="button" class="btn btn-primary" style="background-color: seagreen; border: none;  padding: 13px 50px 13px 50px;"><i class="fa fa-cart-plus" style="font-size:40px;"></i></button>
+                  <button class="btn btn-primary" style="padding: 10px 20px 10px 20px;">Comprar agora</button>
+                  <button type="button" class="btn btn-primary" style="background-color: seagreen; border: none;  padding: 10px 23px 10px 23px;"><i class="fa fa-cart-plus" style="font-size:25px;"></i></button>
                 </div>
               </div>
               <!-- /.Add to Cart -->
@@ -194,7 +195,7 @@
       <div class="col-lg-3" style="font-family: pixel;">
 
         <h1 class="my-4">Categorias</h1>
-        <div class="list-group" v-for="item in categorias">
+        <div class="list-group dropdown" v-for="item in categorias">
           <a href="#" class="list-group-item">{{ item.nomeCategoria }}</a>
         </div>
 
