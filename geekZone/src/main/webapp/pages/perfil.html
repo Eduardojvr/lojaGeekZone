@@ -62,6 +62,11 @@
 .info{
     padding-bottom: 80px;
 }
+
+.atributo{
+  color:teal;
+  font-size: 22px;
+}
 </style>
 
 </head>
@@ -111,20 +116,20 @@
     <div class="tab-content" id="myTabContent">
         <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
             <div style="padding-top: 6%;">
-                <img style="width: 200px; height: 200px;" src="../resources/img/perfil.webp" alt="">
+                <img style="width: 200px; height: 200px;" src="../resources/img/masculino.png" alt="">
            </div>
            <div style="padding-top: 2%;" class="info">
                 <div class="dados-div">
-                    <span>Nome:</span><input class="dados" type="text" readonly v-bind:value="usuario.nomeCompleto">
+                    <span class="atributo">Nome:</span><input class="dados" type="text" readonly v-bind:value="usuario.nomeCompleto">
                 </div>
                 <div class="dados-div">
-                    <span>Email:</span><input class="dados" type="text" readonly v-bind:value="usuario.email">
+                    <span class="atributo">Email:</span><input class="dados" type="text" readonly v-bind:value="usuario.email">
                 </div>
                 <div class="dados-div">
-                    <span>Telefone:</span><input class="dados" type="text" readonly v-bind:value="usuario.telefone">
+                    <span class="atributo">Telefone:</span><input class="dados" type="text" readonly v-bind:value="usuario.telefone">
                 </div>
                 <div class="dados-div">
-                    <span>Celular:</span><input class="dados" type="text" readonly v-bind:value="usuario.celular">
+                    <span class="atributo">Celular:</span><input class="dados" type="text" readonly v-bind:value="usuario.celular">
                 </div>
                 <div class="buttons">
                   <button>Alterar dados</button>
