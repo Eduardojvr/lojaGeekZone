@@ -22,6 +22,7 @@ public class ConnectionManager implements Serializable {
 
 
 
+
 	Connection dbConnection = null;
 	
 	public static Connection getDBConnection() throws Exception {

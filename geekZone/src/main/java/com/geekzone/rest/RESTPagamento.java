@@ -1,6 +1,8 @@
 package com.geekzone.rest;
 
 import java.util.ArrayList;
+
+import com.geekzone.dto.VendaDTO;
 import com.mercadopago.*;
 import com.mercadopago.exceptions.MPConfException;
 import com.mercadopago.exceptions.MPException;
@@ -42,7 +44,7 @@ public class RESTPagamento {
 	@GET
 	@Path("/pagaItem")
 	@Produces({ MediaType.APPLICATION_JSON })
-	public String pagaItem() {
+	public String pagaItem(VendaDTO venda) {
 
 		try {
 			

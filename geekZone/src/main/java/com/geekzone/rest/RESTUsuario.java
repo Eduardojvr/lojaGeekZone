@@ -92,7 +92,7 @@ public class RESTUsuario {
 		try {
 			if (session != null) {
 				request.getSession().setAttribute("logado", false);
-//				session.invalidate();
+				session.invalidate();
 				response.sendRedirect(firstRedirectUrl);
 				return Response.ok().status(Status.OK).build();
 			} else {
@@ -103,6 +103,22 @@ public class RESTUsuario {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return Response.status(Status.FORBIDDEN).entity("Erro ao realizar logout!").build();
+		}
+
+	}
+	
+	@GET
+	@Path("/getUser")
+	@Produces(MediaType.APPLICATION_JSON)
+	public  Usuario getUsuario() {
+		UsuarioDAO dao = new UsuarioDAO();
+		Usuario usuario = null;
+		try {
+			usuario = dao.getUsuario(request.getSession().getAttribute("email").toString());
+			return usuario;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
 		}
 
 	}

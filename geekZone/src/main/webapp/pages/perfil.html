@@ -112,8 +112,11 @@ input{
             <a class="nav-link" href="perfil.html">Perfil</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="../login.html">Carrinho</a>
+            <a class="nav-link" href="carrinho.html">Carrinho</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" style="cursor: pointer;" @click="logout();">Sair</a>
+          </li> 
         </ul>
       </div>
     </div>
@@ -229,7 +232,7 @@ input{
   <script src="../resources/js/vue.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
   <script src="https://apis.google.com/js/client.js"></script>
-  <script src="resources/js/axios.min.js"></script>
+  <script src="../resources/js/axios.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
   <script src="../resources/vendor/jquery/jquery.min.js"></script>
   <script src="../resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -253,33 +256,20 @@ input{
             celular: '61 99812-5003',
             email: 'eduardojvr10@gmail.com',
             senha: ''
-        },
-
+        }
       },
       created : function() {
         const vm = this;
-        axios.get('rs/categoria/todasCategorias').then(function(response){
-          vm.categorias = response.data;
-        });
-
-        axios.get('rs/produto/todosProdutos').then(function(response){
-          vm.itens = response.data;
-        });
-
         
       },
       methods : {
-        compra : function(item){
+        logout : function(){
           const vm = this;
-          vm.selecionado = item;
-          $("#modalCompra").modal("show");
-        },
-        calculaFrete : function(){
-          const vm = this;
-        
-            axios.post('rs/frete/calculaFrete', vm.dadosFrete).then(function(response){
-                vm.frete = response.data["cServico"];
-            });
+          axios.post('../rs/usuario/logout').then(function(response){
+              window.location.href="../index.html";
+          }).catch(function(erro){
+            alert("Erro ao realizar logout!");
+          });
         }
       }
     });

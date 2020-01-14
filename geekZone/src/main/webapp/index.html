@@ -298,7 +298,8 @@ aria-hidden="true">
               <div class="card-body">
                 <div class="text-center">
                   <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
-                  <button class="btn btn-primary" style="padding: 10px 20px 10px 20px;" @click="controleModal();">Comprar agora</button>
+                  <button v-if="usuario.email != null" class="btn btn-primary" style="padding: 10px 20px 10px 20px;" @click="controleModal();">Comprar agora</button>
+                  <button v-else class="btn btn-primary" style="padding: 10px 20px 10px 20px;" onclick="window.location.href='login.html'">Comprar</button>
                   <button type="button" class="btn btn-primary" style="background-color: seagreen; border: none;  padding: 10px 23px 10px 23px;"><i class="fa fa-cart-plus" style="font-size:25px;"></i></button>
                 </div>
               </div>
@@ -322,7 +323,7 @@ aria-hidden="true">
           <li class="nav-item">
             <a class="nav-link active" href="#">Loja</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" v-if="usuario.email != null">
             <a class="nav-link" href="pages/perfil.html">Perfil</a>
           </li>
           <li class="nav-item">
@@ -331,12 +332,21 @@ aria-hidden="true">
           <li class="nav-item">
             <a class="nav-link" href="contato.html">Contato</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" v-if="usuario.email == null">
             <a class="nav-link" href="cadastro.html">Cadastro</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" v-if="usuario.email == null">
             <a class="nav-link" href="login.html">Login</a>
-          </li>
+          </li> 
+          <li class="nav-item" v-if="usuario.email != null">
+            <a class="nav-link" @click="logout();">Sair</a>
+          </li> 
+          <li class="nav-item" v-if="usuario.email != null">
+            <a class="nav-link" href="pages/carrinho">Carrinho</a>
+          </li> 
+          <li class="nav-item" v-else>
+            <a class="nav-link" href="login.html">Carrinho</a>
+          </li> 
         </ul>
       </div>
     </div>
@@ -474,7 +484,8 @@ aria-hidden="true">
           bairro: '',
           estadoComprador: ''
         },
-        idCheckout: ''
+        idCheckout: '',
+        usuario: {}
 
       },
       created : function() {
@@ -485,6 +496,10 @@ aria-hidden="true">
 
         axios.get('rs/produto/todosProdutos').then(function(response){
           vm.itens = response.data;
+        });
+
+        axios.get('rs/usuario/getUser').then(function(response){
+          vm.usuario = response.data;
         });
 
         
@@ -521,8 +536,13 @@ aria-hidden="true">
 					  vm.adicionaCheckout(foo);					
 				  });
         },
-        mercadoPago : function(){
-
+        logout : function(){
+          const vm = this;
+          axios.post('rs/usuario/logout').then(function(response){
+              window.location.href="index.html";
+          }).catch(function(erro){
+            alert("Erro ao realizar logout!");
+          });
         }
       },
      

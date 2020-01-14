@@ -87,7 +87,7 @@ public class UsuarioDAO {
 		String criptografia = new BigInteger(1,m.digest()).toString(16);
 
 
-		pstmt = db.prepareStatement("select * from cliente");
+		pstmt = db.prepareStatement("select * from cliente;");
 
 		try {
 			result = pstmt.executeQuery();
@@ -120,5 +120,43 @@ public class UsuarioDAO {
 		return login;
 	}
 	
+	public Usuario getUsuario(String email) throws Exception {
+		Usuario usuario = null;
+		Connection db = ConnectionManager.getDBConnection();
+		PreparedStatement pstmt = null;
+
+		ResultSet result = null;
+
+		pstmt = db.prepareStatement("select * from cliente where email='"+email+"';");
+
+		try {
+			result = pstmt.executeQuery();
+			while (result.next()) {
+				if (email.equals(result.getString("email"))) {
+					usuario = new Usuario();
+					usuario.setNomeCompleto(result.getString("nomeCompleto"));
+					usuario.setCpf(result.getString("cpf"));
+					usuario.setNascimento(result.getString("nascimento"));
+					usuario.setSexo(result.getString("sexo"));
+					usuario.setCep(result.getString("cep"));
+					usuario.setCidade(result.getString("cidade"));
+					usuario.setBairro(result.getString("bairro"));
+					usuario.setEstado(result.getString("estado"));
+					usuario.setNumero(result.getString("numero"));
+					usuario.setComplemento(result.getString("complemento"));
+					usuario.setTelefone(result.getString("telefone"));
+					usuario.setCelular(result.getString("celular"));
+					usuario.setEmail(result.getString("email"));
+				}
+			}
+
+		} finally {
+			if (pstmt != null)
+				pstmt.close();
+			db.close();
+		}
+		return usuario;
+	}
+
 
 }
