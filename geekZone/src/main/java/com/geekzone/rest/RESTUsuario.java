@@ -114,7 +114,9 @@ public class RESTUsuario {
 		UsuarioDAO dao = new UsuarioDAO();
 		Usuario usuario = null;
 		try {
-			usuario = dao.getUsuario(request.getSession().getAttribute("email").toString());
+			if(request.getSession().getAttribute("email") != null) {
+				usuario = dao.getUsuario(request.getSession().getAttribute("email").toString());				
+			}
 			return usuario;
 		} catch (Exception e) {
 			e.printStackTrace();
