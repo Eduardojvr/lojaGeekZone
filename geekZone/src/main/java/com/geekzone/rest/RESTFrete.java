@@ -47,7 +47,6 @@ public class RESTFrete {
 
 		try (Response r = client.newCall(request).execute()) {
 			dados = r.body().string();
-			System.out.println(dados);
 	        json = XML.toJSONObject(dados);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
