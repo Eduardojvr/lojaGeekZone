@@ -521,6 +521,50 @@ aria-hidden="true">
           $("#modalCompra").modal("hide");
           $("#modalDadosPessoais").modal("show");
         },
+        verificaCampo : function(){
+          const vm = this;
+          var ok = true;
+          if(vm.venda.cpfComprador == null || vm.venda.cpfComprador == '' ){
+            ok = false;
+            alert("O cpf é obrigatório!");
+          }  
+  
+          if(vm.venda.cepComprador  == null || vm.venda.cepComprador  == '') {
+            ok = false;
+            alert("O cep é obrigatório!");
+          } 
+          
+          if(vm.venda.emailComprador == null || vm.venda.emailComprador == ''){
+            ok = false;
+            alert("O email é obrigatório!");
+
+          }
+          if(vm.venda.cidade == null || vm.venda.cidade == ''){
+            ok = false;
+            alert("A cidade é obrigatório!");
+          }
+          
+          if(vm.venda.estado == null || vm.venda.estado == ''){
+            ok = false;
+            alert("O estado é obrigatório!");
+          }
+          
+          if(vm.qtd == null || vm.qtd <= 0){
+            ok = false;
+            alert("A quantidade é obrigatória!");
+          }                 
+        
+          if(vm.venda.numero == null || vm.venda.numero == ''){
+            ok = false;
+            alert("O número da residência é obrigatório!");
+          }
+          
+          if(vm.venda.telefone == null || vm.venda.telefone == ''){
+            ok = false;
+            alert("O telefone é obrigatório!");
+          }
+          return ok;
+        },
         geraCheckout : function(){
           const vm = this;
           var item = {
@@ -538,15 +582,15 @@ aria-hidden="true">
             var frete = response.data["cServico"];
             var frete_tmp = frete.ValorSemAdicionais;
             vm.venda.valorFrete = parseFloat(frete_tmp) * parseInt(Math.ceil(parseFloat(vm.venda.itens.qtd)/2));
-
-            console.log(vm.venda);
-            console.log(item);
-
-            axios.post('rs/pagamento/paga', vm.venda).then(function(response){
-					    vm.id = response.data;
-					    foo.setAttribute("data-preference-id", response.data);
-					    vm.adicionaCheckout(foo);					
-				    });
+            if(vm.verificaCampo() == true){
+              axios.post('rs/pagamento/paga', vm.venda).then(function(response){
+                vm.id = response.data;
+                foo.setAttribute("data-preference-id", response.data);
+                vm.adicionaCheckout(foo);					
+              });
+            } else {
+              alert("Preencha todos os campos obrigatórios!");
+            }
           });
         },
         logout : function(){
