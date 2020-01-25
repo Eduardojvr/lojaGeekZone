@@ -13,7 +13,7 @@ import javax.ws.rs.core.Response;
 
 import com.geekzone.dao.VendaDAO;
 import com.geekzone.entity.Venda;
-import com.geekzone.entity.Item;
+import com.geekzone.entity.ItemVenda;
 
 
 import javax.ws.rs.Produces;

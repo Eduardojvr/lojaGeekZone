@@ -3,6 +3,7 @@ package com.geekzone.entity;
 import java.util.ArrayList;
 
 public class Venda {
+	private String nomeComprador;
 	private String idVenda; 
 	private String cpfComprador;
 	private String cepComprador;
@@ -14,7 +15,9 @@ public class Venda {
 	private String complemento;
 	private String telefone;
 	private String valorFrete;
-	private ArrayList <Item> itens;
+	private String status;
+	private String codRastreio;
+	private ArrayList <ItemVenda> itens;
 	
 	public String getIdVenda() {
 		return idVenda;
@@ -82,14 +85,29 @@ public class Venda {
 	public void setValorFrete(String valorFrete) {
 		this.valorFrete = valorFrete;
 	}
-	public ArrayList<Item> getItens() {
+	public ArrayList<ItemVenda> getItens() {
 		return itens;
 	}
-	public void setItens(ArrayList<Item> itens) {
+	public void setItens(ArrayList<ItemVenda> itens) {
 		this.itens = itens;
 	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	public String getCodRastreio() {
+		return codRastreio;
+	}
+	public void setCodRastreio(String codRastreio) {
+		this.codRastreio = codRastreio;
+	}
+	public String getNomeComprador() {
+		return nomeComprador;
+	}
+	public void setNomeComprador(String nomeComprador) {
+		this.nomeComprador = nomeComprador;
+	}
 	
-	
-	
-
 }

@@ -8,7 +8,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import com.geekzone.entity.Item;
+import com.geekzone.entity.ItemVenda;
 import com.geekzone.entity.Usuario;
 import com.geekzone.entity.Venda;
 import com.geekzone.dao.ConnectionManager;
@@ -18,7 +18,7 @@ public class VendaDAO {
 
 	}
 
-	public void registraVenda(Venda venda, ArrayList <Item> todosItens) throws Exception {
+	public void registraVenda(Venda venda, ArrayList <ItemVenda> todosItens) throws Exception {
 		Connection db = ConnectionManager.getDBConnection();
 		PreparedStatement pstmt = null;
 
@@ -35,9 +35,11 @@ public class VendaDAO {
 		sql.append(" numero, ");
 		sql.append(" complemento, ");
 		sql.append(" telefone, ");
-		sql.append(" valorFrete ");
+		sql.append(" valorFrete, ");
+		sql.append(" status, ");
+		sql.append(" codRastreio ");
 		sql.append(" ) ");
-		sql.append(" VALUES (?,?,?,?,?,?,?,?,?,?);");
+		sql.append(" VALUES (?,?,?,?,?,?,?,?,?,?,?,?);");
 		
 		try {
 			pstmt = db.prepareStatement(sql.toString(), Statement.RETURN_GENERATED_KEYS);
@@ -51,6 +53,8 @@ public class VendaDAO {
 			pstmt.setString(8, venda.getComplemento());
 			pstmt.setString(9, venda.getTelefone());
 			pstmt.setString(10, venda.getValorFrete());
+			pstmt.setString(11, "Não enviado");
+			pstmt.setString(12, null);
 			pstmt.executeUpdate();
 			
 			ResultSet rs = pstmt.getGeneratedKeys();  
@@ -58,7 +62,7 @@ public class VendaDAO {
 			int id = rs.getInt(1);
 			rs.close();
  
-			for(Item item: todosItens) {
+			for(ItemVenda item: todosItens) {
 				registraVenda(Integer.toString(id), item);
 			}
 
@@ -70,7 +74,7 @@ public class VendaDAO {
 
 	}
 	
-	public void registraVenda(String id, Item item) throws Exception {
+	public void registraVenda(String id, ItemVenda item) throws Exception {
 		Connection db = ConnectionManager.getDBConnection();
 		PreparedStatement pstmt = null;
 

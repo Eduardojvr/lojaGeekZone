@@ -1,6 +1,6 @@
 package com.geekzone.entity;
 
-public class Item {
+public class ItemVenda {
 	private String idVenda;
 	private String idProduto;
 	private String qtd;

@@ -2,7 +2,10 @@ package com.geekzone.rest;
 
 import java.util.ArrayList;
 
+import com.geekzone.dao.VendaDAO;
 import com.geekzone.dto.VendaDTO;
+import com.geekzone.entity.ItemVenda;
+import com.geekzone.entity.Venda;
 import com.mercadopago.*;
 import com.mercadopago.exceptions.MPConfException;
 import com.mercadopago.exceptions.MPException;
@@ -41,11 +44,11 @@ public class RESTPagamento {
 		this.request = request;
 	}
 
-	@GET
-	@Path("/pagaItem")
+	@POST
+	@Path("/paga")
 	@Produces({ MediaType.APPLICATION_JSON })
-	public String pagaItem(VendaDTO venda) {
-
+	public String pagaItem(Venda venda) {
+		
 		try {
 			
 			//Homologação
@@ -60,32 +63,41 @@ public class RESTPagamento {
 		
 		//Criar pagamento
 		Payer payer = new Payer();
-		payer.setName("Joao")
-		     .setSurname("Silva")
-		     .setEmail("user@email.com")
-		     .setDateCreated("2018-06-02T12:58:41.425-04:00")
+		payer.setName(venda.getNomeComprador())
+		     .setEmail(venda.getEmailComprador())
 		     .setIdentification(new Identification()
 		        .setType("CPF")
-		        .setNumber("19119119100"))
+		        .setNumber(venda.getCpfComprador()))
 		     .setAddress(new Address()
-		        .setStreetName("Street")
-		        .setZipCode("06233200"));
+		        .setStreetName("Num: "+venda.getNumero()+"Compl: "+venda.getComplemento())
+		        .setZipCode(venda.getCepComprador()));
 		
 		
 		//Define item da venda
-		Item item = new Item();
-		item.setTitle("Meu produto")
-		    .setQuantity(1)
-		    .setUnitPrice((float) 100);
-		
-		preference.appendItem(item);
+		for(ItemVenda i : venda.getItens()) {
+			Item item = new Item();
+			item.setTitle("Id prod: "+i.getIdProduto())
+			.setQuantity(Integer.parseInt(i.getQtd()))
+			.setUnitPrice(Float.parseFloat(i.getPrecoUnidade()));
+			preference.appendItem(item);
+		}
 		preference.setPayer(payer);
+		preference.setExternalReference(venda.getIdVenda());
 
 		try {
 			preference.save();
 		} catch (MPException e) {
 			e.printStackTrace();
 		}
+		
+		VendaDAO registraVenda = new VendaDAO();
+		try {
+			registraVenda.registraVenda(venda, venda.getItens());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		return preference.getId();
 	
 	}

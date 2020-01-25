@@ -121,7 +121,11 @@ aria-hidden="true">
                 <br>
                 <p> 
                   <label for="nome_cad">Email<span class="ast">*</span></label><br>
-                  <input id="nome_cad" name="nome_cad" type="email" placeholder="" required/>
+                  <input v-model="venda.emailComprador"  id="nome_cad" name="nome_cad" type="email" placeholder="Email para recebimento de informações adicionais" required/>
+                </p>
+                <p> 
+                  <label for="nome_cad">CPF<span class="ast">*</span></label><br>
+                  <input v-model="venda.cpfComprador"  id="nome_cad" name="nome_cad" type="text" required/>
                 </p>
                 <p> 
                   <label for="nome_cad">Preço (un)</label><br>
@@ -130,39 +134,35 @@ aria-hidden="true">
                 </p>
                 <p> 
                   <label for="nome_cad">Quantidade<span class="ast">*</span></label><br>
-                  <input id="nome_cad" name="nome_cad" type="number" v-bind:max="selecionado.qtd" min="1" placeholder="" style="width: 30%;" required/>
+                  <input v-model="qtd" id="nome_cad" name="nome_cad" type="number" v-bind:max="selecionado.qtd" min="1" placeholder="" style="width: 30%;" required/>
                 </p>
                 <p> 
                   <label for="nome_cad">Telefone<span class="ast">*</span></label><br>
-                  <input id="nome_cad" name="nome_cad" type="text" placeholder="" required/>
+                  <input v-model="venda.telefone" id="nome_cad" name="nome_cad" type="text" placeholder="" required/>
                 </p>
                 <p> 
                   <label for="nome_cad">Cep<span class="ast">*</span></label><br>
-                  <input id="nome_cad" name="nome_cad" type="text" placeholder="" required/>
+                  <input v-model="venda.cepComprador" id="nome_cad" name="nome_cad" type="text" placeholder="" required/>
                 </p>
                 <p> 
                   <label for="nome_cad">Cidade<span class="ast">*</span></label><br>
-                  <input id="nome_cad" name="nome_cad" type="text" placeholder="" required/>
+                  <input v-model="venda.cidade" id="nome_cad" name="nome_cad" type="text" placeholder="" required/>
                 </p>
                 <p> 
                   <label for="nome_cad">Estado<span class="ast">*</span></label><br>
-                  <input id="nome_cad" name="nome_cad" type="text" placeholder="" required/>
-                </p>
-                <p> 
-                  <label for="nome_cad">Rua<span class="ast">*</span></label><br>
-                  <input id="nome_cad" name="nome_cad" type="text" placeholder="" required/>
+                  <input v-model="venda.estado" id="nome_cad" name="nome_cad" type="text" placeholder="" required/>
                 </p>
                 <p> 
                   <label for="nome_cad">Nº Residência<span class="ast">*</span></label><br>
-                  <input id="nome_cad" name="nome_cad" type="text" placeholder="" required/>
+                  <input v-model="venda.numero" id="nome_cad" name="nome_cad" type="text" placeholder="" required/>
                 </p>
                 <p> 
                   <label for="nome_cad">Bairro(opcional)</label><br>
-                  <input id="nome_cad" name="nome_cad" type="text" placeholder="" required/>
+                  <input v-model="venda.bairro"  id="nome_cad" name="nome_cad" type="text" placeholder=""/>
                 </p>
                 <p> 
                   <label for="nome_cad">Complemento(opcional)</label><br>
-                  <input id="nome_cad" name="nome_cad" type="text" placeholder="" required/>
+                  <input v-model="venda.complemento" id="nome_cad" name="nome_cad" type="text" placeholder=""/>
                 </p>
               </div>
             </div>
@@ -452,34 +452,35 @@ aria-hidden="true">
           sCepDestino:"",
           nVlPeso:"1",
           nCdFormato:"1",
-          nVlComprimento:"20",
-          nVlAltura:"15",
-          nVlLargura:"15",
+          nVlComprimento:"19",
+          nVlAltura:"18",
+          nVlLargura:"12",
           nVlDiametro:"0",
           sCdMaoPropria:"n",
           nVlValorDeclarado:"",
           sCdAvisoRecebimento:"n"
         },
         frete: {},
-        compraCliente: {
+        venda: {
           nomeComprador:'',
+          idVenda:'',
           cpfComprador: '',
-          emailComprador: '',
-          valorUnidade: '',
-          qtdComprada: '',
-          idProduto: '',
-          nomeProduto: '',
-          telefoneComprador: '',
           cepComprador: '',
-          cidadeComprador: '',
-          ruaComprador: '',
-          numeroCasa: '',
-          complementoEndereco: '',
+          emailComprador: '',
+          cidade: '',
           bairro: '',
-          estadoComprador: ''
+          estado: '',
+          numero: '',
+          complemento: '',
+          telefone: '',
+          valorFrete: 0,
+          status: '',
+          codRastreio: '',
+          itens: []
         },
         idCheckout: '',
-        usuario: {}
+        usuario: {},
+        qtd: 0
 
       },
       created : function() {
@@ -522,13 +523,31 @@ aria-hidden="true">
         },
         geraCheckout : function(){
           const vm = this;
+          var item = {
+            idVenda: '',
+            idProduto: vm.selecionado.idProduto,
+            qtd: vm.qtd,
+            precoUnidade: vm.selecionado.preco
+          }
+          vm.venda.itens.push(item);
 				  let foo = document.createElement('script');  
 				  foo.setAttribute("src","https://www.mercadopago.com.br/integrations/v1/web-payment-checkout.js");
-				  axios.get('rs/pagamento/pagaItem').then(function(response){
-					  vm.id = response.data;
-					  foo.setAttribute("data-preference-id", response.data);
-					  vm.adicionaCheckout(foo);					
-				  });
+          vm.dadosFrete.sCepDestino = vm.venda.cepComprador;
+          vm.venda.nomeComprador = vm.usuario.nomeCompleto;
+          axios.post('rs/frete/calculaFrete', vm.dadosFrete).then(function(response){
+            var frete = response.data["cServico"];
+            var frete_tmp = frete.ValorSemAdicionais;
+            vm.venda.valorFrete = parseFloat(frete_tmp) * parseInt(Math.ceil(parseFloat(vm.venda.itens.qtd)/2));
+
+            console.log(vm.venda);
+            console.log(item);
+
+            axios.post('rs/pagamento/paga', vm.venda).then(function(response){
+					    vm.id = response.data;
+					    foo.setAttribute("data-preference-id", response.data);
+					    vm.adicionaCheckout(foo);					
+				    });
+          });
         },
         logout : function(){
           const vm = this;
