@@ -52,6 +52,10 @@ input#preco{
   width: 10%;
 }
 
+.ast {
+  color: red;
+}
+
 
 </style>
 
@@ -116,60 +120,50 @@ aria-hidden="true">
               <div id="cadastro">
                 <br>
                 <p> 
-                  <label for="nome_cad">Nome</label><br>
-                  <input id="nome_cad" name="nome_cad" type="text" placeholder="" required/>
-                </p>
-                <p> 
-                  <label for="nome_cad">Cpf</label><br>
-                  <input id="nome_cad" name="nome_cad" type="text" placeholder="" required/>
-                </p>
-                <p> 
-                  <label for="nome_cad">Email</label><br>
+                  <label for="nome_cad">Email<span class="ast">*</span></label><br>
                   <input id="nome_cad" name="nome_cad" type="email" placeholder="" required/>
                 </p>
                 <p> 
                   <label for="nome_cad">Preço (un)</label><br>
                   <span>R$</span>
                   <input id="preco" name="nome_cad" type="email" placeholder="" v-bind:value="selecionado.preco" readonly/>
-
                 </p>
                 <p> 
-                  <label for="nome_cad">Quantidade</label><br>
+                  <label for="nome_cad">Quantidade<span class="ast">*</span></label><br>
                   <input id="nome_cad" name="nome_cad" type="number" v-bind:max="selecionado.qtd" min="1" placeholder="" style="width: 30%;" required/>
                 </p>
                 <p> 
-                  <label for="nome_cad">Telefone</label><br>
+                  <label for="nome_cad">Telefone<span class="ast">*</span></label><br>
                   <input id="nome_cad" name="nome_cad" type="text" placeholder="" required/>
                 </p>
                 <p> 
-                  <label for="nome_cad">Cep</label><br>
+                  <label for="nome_cad">Cep<span class="ast">*</span></label><br>
                   <input id="nome_cad" name="nome_cad" type="text" placeholder="" required/>
                 </p>
                 <p> 
-                  <label for="nome_cad">Cidade</label><br>
+                  <label for="nome_cad">Cidade<span class="ast">*</span></label><br>
                   <input id="nome_cad" name="nome_cad" type="text" placeholder="" required/>
                 </p>
                 <p> 
-                  <label for="nome_cad">Rua</label><br>
+                  <label for="nome_cad">Estado<span class="ast">*</span></label><br>
                   <input id="nome_cad" name="nome_cad" type="text" placeholder="" required/>
                 </p>
                 <p> 
-                  <label for="nome_cad">Nº Residência</label><br>
+                  <label for="nome_cad">Rua<span class="ast">*</span></label><br>
                   <input id="nome_cad" name="nome_cad" type="text" placeholder="" required/>
                 </p>
                 <p> 
-                  <label for="nome_cad">Complemento</label><br>
+                  <label for="nome_cad">Nº Residência<span class="ast">*</span></label><br>
                   <input id="nome_cad" name="nome_cad" type="text" placeholder="" required/>
                 </p>
                 <p> 
-                  <label for="nome_cad">Bairro</label><br>
+                  <label for="nome_cad">Bairro(opcional)</label><br>
                   <input id="nome_cad" name="nome_cad" type="text" placeholder="" required/>
                 </p>
                 <p> 
-                  <label for="nome_cad">Estado</label><br>
+                  <label for="nome_cad">Complemento(opcional)</label><br>
                   <input id="nome_cad" name="nome_cad" type="text" placeholder="" required/>
                 </p>
-       
               </div>
             </div>
             <div class="card-body">
