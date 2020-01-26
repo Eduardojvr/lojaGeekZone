@@ -277,12 +277,14 @@ aria-hidden="true">
                 </div> 
               </div>
               <br><br>
+                <label for="nome_cad">Quantidade: </label>
+                <input  type="number" v-bind:max="selecionado.qtd" min="1" placeholder="" v-bind:value="quantidadeTmp" style="width: 10%; border: none; color: rgb(0, 162, 255);" required/><br><br>
               <div class="input-group mb-3">
                 <div class="input-group-prepend">
                   <span class="input-group-text" id="basic-addon1"><i class="fa fa-truck" style="font-size:22px;"></i></span>
                 </div>
-                <input type="text" class="form-control" placeholder="Digite o cep do destino" v-model="dadosFrete.sCepDestino" aria-label="Username" aria-describedby="basic-addon1">
-                <button class="btn btn-primary" @click="calculaFrete();">Calcular Frete</button>
+                  <input type="text" class="form-control" placeholder="Digite o cep do destino" v-model="dadosFrete.sCepDestino" aria-label="Username" aria-describedby="basic-addon1">
+                  <button class="btn btn-primary" @click="calculaFrete();">Calcular Frete</button>
               </div>  
                   <div v-if="frete.ValorSemAdicionais != null && frete.MsgErro==''">
                     <span style="color: rgb(9, 126, 25);">Valor do frete: 𝐑$ {{ frete.ValorSemAdicionais }} <br> Tempo estimado para entrega: {{ frete.PrazoEntrega }} dias</span>
@@ -322,12 +324,12 @@ aria-hidden="true">
           <li class="nav-item" v-if="usuario.email != null">
             <a class="nav-link" href="pages/perfil.html">Perfil</a>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a class="nav-link" href="sobre.html">Sobre</a>
-          </li>
-          <li class="nav-item">
+          </li> -->
+          <!-- <li class="nav-item">
             <a class="nav-link" href="contato.html">Contato</a>
-          </li>
+          </li> -->
           <li class="nav-item" v-if="usuario.email == null">
             <a class="nav-link" href="cadastro.html">Cadastro</a>
           </li>
@@ -337,12 +339,12 @@ aria-hidden="true">
           <li class="nav-item" v-if="usuario.email != null">
             <a class="nav-link" @click="logout();">Sair</a>
           </li> 
-          <li class="nav-item" v-if="usuario.email != null">
+          <!-- <li class="nav-item" v-if="usuario.email != null">
             <a class="nav-link" href="pages/carrinho">Carrinho</a>
-          </li> 
-          <li class="nav-item" v-else>
+          </li>  -->
+          <!-- <li class="nav-item" v-else>
             <a class="nav-link" href="login.html">Carrinho</a>
-          </li> 
+          </li>  -->
         </ul>
       </div>
     </div>
@@ -484,7 +486,8 @@ aria-hidden="true">
         usuario: {},
         qtd: 0,
         totalProduto: 0,
-        totalFreteProduto: 0
+        totalFreteProduto: 0,
+        quantidadeTmp: 1
       },
       created : function() {
         const vm = this;
@@ -498,13 +501,13 @@ aria-hidden="true">
 
         axios.get('rs/usuario/getUser').then(function(response){
           vm.usuario = response.data;
-          var tmp = 11 - parseInt(vm.usuario.cpf.length);
-          if(tmp != 0){
-            vm.usuario.cpf = ("00000000000" + vm.usuario.cpf).slice(-11);
+          if(vm.usuario.cpf != null){
+            var tmp = 11 - parseInt(vm.usuario.cpf.length);
+            if(tmp != 0){
+              vm.usuario.cpf = ("00000000000" + vm.usuario.cpf).slice(-11);
+            }
           }
         });
-
-        
       },
       methods : {
         compra : function(item){
@@ -513,10 +516,13 @@ aria-hidden="true">
           $("#modalCompra").modal("show");
         },
         calculaFrete : function(){
-          const vm = this;
+            const vm = this;
         
             axios.post('rs/frete/calculaFrete', vm.dadosFrete).then(function(response){
-                vm.frete = response.data["cServico"];
+              vm.frete = response.data["cServico"];
+              var frete_tmp = vm.frete.ValorSemAdicionais;
+              vm.frete.ValorSemAdicionais = parseFloat(frete_tmp) * parseInt(Math.ceil(vm.quantidadeTmp/2));
+              vm.frete.ValorSemAdicionais = vm.frete.ValorSemAdicionais.toFixed(2);
             });
         },
         adicionaCheckout : function(foo){
