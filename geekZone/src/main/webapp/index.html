@@ -85,8 +85,10 @@ aria-hidden="true">
         <div class="col-lg-11 formulario">
             <br>
             <div class="modal-body">
-              <h4 style="color: #696969;">Olá cliente, faltam poucos passos para concluir sua compra. Clique em pagar para
-                dar continuidade.
+              <h4 style="color: #696969;">Olá cliente, faltam poucos passos para concluir sua compra.<br> Valor total de produtos: <span style="color: green;">R$ {{ totalProduto }}</span> 
+                <br> Valor total do frete: <span style="color:green">R$ {{ venda.valorFrete }}</span>
+                <br> Total: <span style="color:green">R$ {{ totalFreteProduto }}</span>
+                <br> Clique em pagar para dar continuidade.
               </h4>
             </div>
         </div>
@@ -125,7 +127,7 @@ aria-hidden="true">
                 </p>
                 <p> 
                   <label for="nome_cad">CPF<span class="ast">*</span></label><br>
-                  <input v-model="venda.cpfComprador"  id="nome_cad" name="nome_cad" type="text" required/>
+                  <input v-bind:value="usuario.cpf" id="nome_cad" name="nome_cad" type="text" readonly/>
                 </p>
                 <p> 
                   <label for="nome_cad">Preço (un)</label><br>
@@ -480,8 +482,9 @@ aria-hidden="true">
         },
         idCheckout: '',
         usuario: {},
-        qtd: 0
-
+        qtd: 0,
+        totalProduto: 0,
+        totalFreteProduto: 0
       },
       created : function() {
         const vm = this;
@@ -495,6 +498,10 @@ aria-hidden="true">
 
         axios.get('rs/usuario/getUser').then(function(response){
           vm.usuario = response.data;
+          var tmp = 11 - parseInt(vm.usuario.cpf.length);
+          if(tmp != 0){
+            vm.usuario.cpf = ("00000000000" + vm.usuario.cpf).slice(-11);
+          }
         });
 
         
@@ -567,7 +574,9 @@ aria-hidden="true">
         },
         geraCheckout : function(){
           const vm = this;
+          vm.venda.cpfComprador = vm.usuario.cpf;
           var item = {
+            nomeProduto: vm.selecionado.nomeProduto,
             idVenda: '',
             idProduto: vm.selecionado.idProduto,
             qtd: vm.qtd,
@@ -581,7 +590,12 @@ aria-hidden="true">
           axios.post('rs/frete/calculaFrete', vm.dadosFrete).then(function(response){
             var frete = response.data["cServico"];
             var frete_tmp = frete.ValorSemAdicionais;
-            vm.venda.valorFrete = parseFloat(frete_tmp) * parseInt(Math.ceil(parseFloat(vm.venda.itens.qtd)/2));
+            vm.venda.valorFrete = parseFloat(frete_tmp) * parseInt(Math.ceil(parseFloat(vm.venda.itens[0].qtd)/2));
+            vm.totalProduto = parseFloat(item.qtd) *  parseFloat(item.precoUnidade);
+            vm.totalFreteProduto = vm.venda.valorFrete + vm.totalProduto;
+            vm.totalFreteProduto = vm.totalFreteProduto.toFixed(2);
+            vm.totalProduto = vm.totalProduto.toFixed(2);
+            alert(vm.totalFreteProduto);
             if(vm.verificaCampo() == true){
               axios.post('rs/pagamento/paga', vm.venda).then(function(response){
                 vm.id = response.data;

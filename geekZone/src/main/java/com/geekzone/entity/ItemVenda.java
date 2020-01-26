@@ -1,6 +1,7 @@
 package com.geekzone.entity;
 
 public class ItemVenda {
+	private String nomeProduto;
 	private String idVenda;
 	private String idProduto;
 	private String qtd;
@@ -29,7 +30,14 @@ public class ItemVenda {
 	}
 	public void setPrecoUnidade(String precoUnidade) {
 		this.precoUnidade = precoUnidade;
+	}
+	public String getNomeProduto() {
+		return nomeProduto;
+	}
+	public void setNomeProduto(String nomeProduto) {
+		this.nomeProduto = nomeProduto;
 	} 
+	
 	
 	
 }

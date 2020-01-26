@@ -76,11 +76,21 @@ public class RESTPagamento {
 		//Define item da venda
 		for(ItemVenda i : venda.getItens()) {
 			Item item = new Item();
-			item.setTitle("Id prod: "+i.getIdProduto())
+			item.setTitle(i.getNomeProduto()+" Cod: "+i.getIdProduto())
 			.setQuantity(Integer.parseInt(i.getQtd()))
 			.setUnitPrice(Float.parseFloat(i.getPrecoUnidade()));
 			preference.appendItem(item);
 		}
+		System.out.println("Frete "+ venda.getValorFrete());
+
+		
+		
+		Item frete = new Item();
+		frete.setTitle("Frete");
+		frete.setQuantity(1);
+		frete.setUnitPrice(Float.parseFloat(venda.getValorFrete()));
+		preference.appendItem(frete);
+		
 		preference.setPayer(payer);
 		preference.setExternalReference(venda.getIdVenda());
 
