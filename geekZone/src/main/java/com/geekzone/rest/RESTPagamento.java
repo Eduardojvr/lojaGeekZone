@@ -80,10 +80,7 @@ public class RESTPagamento {
 			.setQuantity(Integer.parseInt(i.getQtd()))
 			.setUnitPrice(Float.parseFloat(i.getPrecoUnidade()));
 			preference.appendItem(item);
-		}
-		System.out.println("Frete "+ venda.getValorFrete());
-
-		
+		}		
 		
 		Item frete = new Item();
 		frete.setTitle("Frete");

@@ -63,19 +63,19 @@ input#preco{
 
 <body>
   
+  
+
   <div id="inicial">
 
-
-
-<div  style="overflow-y: auto;" class="modal fade" id="modalConfirma" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-aria-hidden="true">
+<div  style="overflow-y: auto;" data-keyboard="false" class="modal fade" id="modalConfirma" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+aria-hidden="true" data-backdrop="static">
 <div class="modal-dialog modal-lg" role="document">
   <div class="modal-content">
     <div class="modal-header d-flex justify-content-center" style="background-color: #33b5e5; font-family: pixel; color:whitesmoke; font-size: 28px;">
       <div style="padding-left: 40%;">
         <p class="heading">Confirmação</p>
       </div>
-      <button type="button" class="close" data-dismiss="modal" style="text-align: right; color: whitesmoke;"
+      <button onclick="location.reload();" type="button" class="close" data-dismiss="modal" style="text-align: right; color: whitesmoke;"
           aria-label="Close" style="text-align: right; padding-right: 20px; padding-top: 10px;">
         <span aria-hidden="true">×</span>
       </button>
@@ -94,7 +94,8 @@ aria-hidden="true">
         </div>
         <div class="card-body">
           <div class="text-center">
-            <form action="aguarde.html" method="POST" ref="myform"></form>      
+            <div ref="myform" ></div>
+            <!-- <form action="aguarde.html" method="POST" ref="myform"></form>       -->
           </div>
         </div>
       </div>
@@ -103,15 +104,15 @@ aria-hidden="true">
 </div>
 </div>
 
-    <div  style="overflow-y: auto;" class="modal fade" id="modalDadosPessoais" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
+    <div  style="overflow-y: auto;" data-keyboard="false" class="modal fade" id="modalDadosPessoais" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true" data-backdrop="static">
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header d-flex justify-content-center" style="background-color: #33b5e5; font-family: pixel; color:whitesmoke; font-size: 28px;">
           <div style="padding-left: 30%;">
             <p class="heading">Informações pessoais</p>
           </div>
-          <button type="button" class="close" data-dismiss="modal" style="text-align: right; color: whitesmoke;"
+          <button  onclick="location.reload();" type="button" class="close" data-dismiss="modal" style="text-align: right; color: whitesmoke;"
               aria-label="Close" style="text-align: right; padding-right: 20px; padding-top: 10px;">
             <span aria-hidden="true">×</span>
           </button>
@@ -136,7 +137,10 @@ aria-hidden="true">
                 </p>
                 <p> 
                   <label for="nome_cad">Quantidade<span class="ast">*</span></label><br>
-                  <input v-model="qtd" id="nome_cad" name="nome_cad" type="number" v-bind:max="selecionado.qtd" min="1" placeholder="" style="width: 30%;" required/>
+                  <select v-model="qtd">
+                    <option v-for="i in 10">{{ i }}</option>
+                  </select>
+                  <!-- <input v-model="qtd" id="nome_cad" name="nome_cad" type="number" v-bind:max="selecionado.qtd" min="1" placeholder="" style="width: 30%;" required/> -->
                 </p>
                 <p> 
                   <label for="nome_cad">Telefone<span class="ast">*</span></label><br>
@@ -170,8 +174,8 @@ aria-hidden="true">
             </div>
             <div class="card-body">
               <div class="text-center">
-                <button type="button"  @click="geraCheckout();"  class="btn btn-primary" style="border: none;  padding: 10px 23px 10px 23px;">Próximo</button>
-                <button type="button"  data-dismiss="modal"  class="btn btn-danger" style="border: none;  padding: 10px 23px 10px 23px;">Cancelar</i></button>
+                <button id="pagar" type="button"  @click="geraCheckout();"  class="btn btn-primary" style="border: none;  padding: 10px 23px 10px 23px;">Próximo</button>
+                <button type="button"  onclick="location.reload();"  data-dismiss="modal"  class="btn btn-danger" style="border: none;  padding: 10px 23px 10px 23px;">Cancelar</i></button>
               </div>
             </div>
       
@@ -184,8 +188,7 @@ aria-hidden="true">
 
     
     <!-- Modal: modalQuickView -->
-    <div class="modal fade" id="modalCompra" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
+    <div class="modal fade" id="modalCompra" role="dialog" aria-labelledby="exampleModalLabel" tabindex="-1" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <button type="button" class="close" data-dismiss="modal"
@@ -278,7 +281,10 @@ aria-hidden="true">
               </div>
               <br><br>
                 <label for="nome_cad">Quantidade: </label>
-                <input  type="number" v-bind:max="selecionado.qtd" min="1" placeholder="" v-bind:value="quantidadeTmp" style="width: 10%; border: none; color: rgb(0, 162, 255);" required/><br><br>
+                <select v-model="quantidadeTmp">
+                  <option v-for="i in 10">{{ i }}</option>
+                </select>
+                <!-- <input  type="number" v-bind:max="selecionado.qtd" min="1" placeholder="" v-bind:value="quantidadeTmp" style="width: 10%; border: none; color: rgb(0, 162, 255);" required/><br><br> -->
               <div class="input-group mb-3">
                 <div class="input-group-prepend">
                   <span class="input-group-text" id="basic-addon1"><i class="fa fa-truck" style="font-size:22px;"></i></span>
@@ -305,6 +311,14 @@ aria-hidden="true">
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" data-backdrop="static" data-keyboard="false" id="aguarde" role="dialog" aria-labelledby="exampleModalLabel" data-toggle="modal" tabindex="1" style="background-color: rgb(0, 0, 0);">
+    <div class="modal-dialog modal-lg" role="document" >
+      <div class="modal-content" style="background: transparent;">
+        <img src="resources/img/carregando.gif" alt="">
       </div>
     </div>
   </div>
@@ -356,14 +370,15 @@ aria-hidden="true">
     <div class="row">
 
       <div class="col-lg-3" style="font-family: pixel;">
-
+        <img src="resources/img/mp.png" alt="" style="height: 180px; width: 270px;"><br><br>
+        <div style="text-align: justify;" >Para compras acima de 10 unidades, entrar em contato pelo email solicitando o orçamento.
+          <span style="color: yellowgreen;">geekzone.suporte@gmail.com</span>
+        </div>
+        <br>
         <h1 class="my-4">Categorias</h1>
         <div class="list-group dropdown" v-for="item in categorias">
           <a href="#" class="list-group-item">{{ item.nomeCategoria }}</a>
         </div>
-        <br>
-        <img src="resources/img/mp.png" alt="" style="height: 180px; width: 270px;">
-
       </div>
 
       <!-- /.col-lg-3 -->
@@ -510,6 +525,14 @@ aria-hidden="true">
         });
       },
       methods : {
+        abreLoad : function(){
+          const vm = this;
+          $("#aguarde").modal("show");
+        },
+        fechaLoad : function(){
+          const vm = this;
+          $("#aguarde").modal("hide");
+        },
         compra : function(item){
           const vm = this;
           vm.selecionado = item;
@@ -517,18 +540,21 @@ aria-hidden="true">
         },
         calculaFrete : function(){
             const vm = this;
-        
+            vm.abreLoad();
             axios.post('rs/frete/calculaFrete', vm.dadosFrete).then(function(response){
               vm.frete = response.data["cServico"];
               var frete_tmp = vm.frete.ValorSemAdicionais;
               vm.frete.ValorSemAdicionais = parseFloat(frete_tmp) * parseInt(Math.ceil(vm.quantidadeTmp/2));
               vm.frete.ValorSemAdicionais = vm.frete.ValorSemAdicionais.toFixed(2);
+            }).finally(function(){
+              vm.fechaLoad();
             });
         },
         adicionaCheckout : function(foo){
 					this.$refs.myform.appendChild(foo);
           $("#modalDadosPessoais").modal("hide");
           $("#modalConfirma").modal("show");
+          document.getElementById("pagar").style.display = "inline";
 				},
         controleModal : function(){
           $("#modalCompra").modal("hide");
@@ -539,47 +565,49 @@ aria-hidden="true">
           var ok = true;
           if(vm.venda.cpfComprador == null || vm.venda.cpfComprador == '' ){
             ok = false;
-            alert("O cpf é obrigatório!");
+            // alert("O cpf é obrigatório!");
           }  
   
           if(vm.venda.cepComprador  == null || vm.venda.cepComprador  == '') {
             ok = false;
-            alert("O cep é obrigatório!");
+            // alert("O cep é obrigatório!");
           } 
           
           if(vm.venda.emailComprador == null || vm.venda.emailComprador == ''){
             ok = false;
-            alert("O email é obrigatório!");
+            // alert("O email é obrigatório!");
 
           }
           if(vm.venda.cidade == null || vm.venda.cidade == ''){
             ok = false;
-            alert("A cidade é obrigatório!");
+            // alert("A cidade é obrigatório!");
           }
           
           if(vm.venda.estado == null || vm.venda.estado == ''){
             ok = false;
-            alert("O estado é obrigatório!");
+            // alert("O estado é obrigatório!");
           }
           
           if(vm.qtd == null || vm.qtd <= 0){
             ok = false;
-            alert("A quantidade é obrigatória!");
+            // alert("A quantidade é obrigatória!");
           }                 
         
           if(vm.venda.numero == null || vm.venda.numero == ''){
             ok = false;
-            alert("O número da residência é obrigatório!");
+            // alert("O número da residência é obrigatório!");
           }
           
           if(vm.venda.telefone == null || vm.venda.telefone == ''){
             ok = false;
-            alert("O telefone é obrigatório!");
+            // alert("O telefone é obrigatório!");
           }
           return ok;
         },
         geraCheckout : function(){
           const vm = this;
+          vm.abreLoad();
+          document.getElementById("pagar").style.display = "none";
           vm.venda.cpfComprador = vm.usuario.cpf;
           var item = {
             nomeProduto: vm.selecionado.nomeProduto,
@@ -601,15 +629,23 @@ aria-hidden="true">
             vm.totalFreteProduto = vm.venda.valorFrete + vm.totalProduto;
             vm.totalFreteProduto = vm.totalFreteProduto.toFixed(2);
             vm.totalProduto = vm.totalProduto.toFixed(2);
-            alert(vm.totalFreteProduto);
-            if(vm.verificaCampo() == true){
+
+            if(vm.verificaCampo() == true && frete.MsgErro == ''){
               axios.post('rs/pagamento/paga', vm.venda).then(function(response){
                 vm.id = response.data;
                 foo.setAttribute("data-preference-id", response.data);
                 vm.adicionaCheckout(foo);					
+              }).finally(function(){
+                vm.fechaLoad();
               });
+            } else if(frete.MsgErro !=''){
+              vm.fechaLoad();
+              alert("CEP inválido!");
+              location.reload();
             } else {
+              vm.fechaLoad();
               alert("Preencha todos os campos obrigatórios!");
+              location.reload();
             }
           });
         },
