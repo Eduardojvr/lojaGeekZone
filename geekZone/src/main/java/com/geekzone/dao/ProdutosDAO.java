@@ -20,7 +20,7 @@ public class ProdutosDAO {
 		ResultSet result = null;
 
 		try {
-			pstmt = db.prepareStatement("SELECT * FROM produto");
+			pstmt = db.prepareStatement("SELECT * FROM produto order by idProduto desc;");
 			result = pstmt.executeQuery();
 
 			while (result.next()) {
