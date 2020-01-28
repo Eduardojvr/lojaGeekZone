@@ -168,50 +168,22 @@ input{
           </div>
        <div style="padding-top: 2%;" class="info">
         <div id="elemento" style="padding-left: 10%; padding-right: 10%;">
-          <div style="border: 1px; border-color: rgb(224, 224, 224); border-style:solid; padding: 10px; text-align: left;" class="row">
+          <div v-for="item in minhasCompras" style="border: 1px; border-color: rgb(224, 224, 224); border-style:solid; padding: 10px; text-align: left;" class="row">
             <div class="img-prod" style="padding-left: 35px;">
-              <img  class="im" src="https://nerdstore.com.br/wp-content/uploads/2018/07/caneca-magica-criativa-rick-and-morty.jpg" alt="" style="height: 150px; width: 150px;"><br>
+              <img  class="im" v-bind:src="item.linkImg1" alt="" style="height: 150px; width: 250px;"><br>
             </div>
-            <span style="padding-left: 15px; padding-top: 10px;"> 
-              <a style="color: #007bff; font-size: 25px;">Caneca rick and morty</a> <br>
-              <a >Quantidade: 2 </a> <br> 
-              <a >Valor total: R$ 200,00</a>  <br> 
-              <a >Rastreio: </a> <br>
+            <span style="padding-left: 15px; padding-top: 10px; max-width: 30%;"> 
+              <a style="color: #007bff; font-size: 25px;">{{ item.nomeProduto }}</a> <br>
+              <a >Quantidade comprada: {{ item.qtdComprada }} </a> <br> 
+              <a >Valor un: R$ {{ item.valorUnidade }} </a> <br> 
+              <!-- <a >Valor total: R$ {{  }}</a>  <br>  -->
+              <a >Status: {{ item.status }}</a> <br>
+              <a >Rastreio: {{ item.codRastreio }}</a> <br>
             </span>
             <a style="padding-top: 5%; padding-left: 17%;">
               <button type="button" style="background-color: #0069d9; border: none; border-radius: 0px; padding: 15px 50px 15px 50px;">Detalhes</button>
             </a>
           </div><br>
-          <div style="border: 1px; border-color: rgb(224, 224, 224); border-style:solid; padding: 10px; text-align: left;" class="row">
-            <div class="img-prod" style="padding-left: 25px;">
-              <img  class="im" src="https://nerdstore.com.br/wp-content/uploads/2018/07/caneca-magica-criativa-rick-and-morty.jpg" alt="" style="height: 150px; width: 150px;"><br>
-            </div>
-            <span style="padding-left: 15px; padding-top: 10px;"> 
-              <a style="color: #007bff; font-size: 25px;">Caneca rick and morty</a> <br>
-              <a >Quantidade: 2 </a> <br> 
-              <a >Valor total: R$ 200,00</a>  <br> 
-              <a >Rastreio: </a> <br>
-            </span>
-            <a style="padding-top: 5%; padding-left: 17%;">
-              <button type="button" style="background-color: #0069d9; border: none; border-radius: 0px; padding: 15px 50px 15px 50px;">Detalhes</button>
-            </a>
-          </div><br>
-          <div style="border: 1px; border-color: rgb(224, 224, 224); border-style:solid; padding: 10px; text-align: left;" class="row">
-            <div class="img-prod" style="padding-left: 25px;">
-              <img  class="im" src="https://nerdstore.com.br/wp-content/uploads/2018/07/caneca-magica-criativa-rick-and-morty.jpg" alt="" style="height: 150px; width: 150px;"><br>
-            </div>
-            <span style="padding-left: 15px; padding-top: 10px;"> 
-              <a style="color: #007bff; font-size: 25px;">Caneca rick and morty</a> <br>
-              <a >Quantidade: 2 </a> <br> 
-              <a >Valor total: R$ 200,00</a>  <br> 
-              <a >Rastreio: </a> <br>
-            </span>
-            <a style="padding-top: 5%; padding-left: 17%;">
-              <button type="button" style="background-color: #0069d9; border: none; border-radius: 0px; padding: 15px 50px 15px 50px;">Detalhes</button>
-            </a>
-          </div><br>
-     
-
           </div>
         </div>
 
@@ -241,28 +213,16 @@ input{
     new Vue({
       el:'#perfil',
       data:{
-        usuario: {}
-        // usuario: {
-           // nomeCompleto: '',
-            // cpf: '',
-            // nascimento: '',
-            // sexo: '',
-            // cep: '',
-            // cidade: '',
-            // bairro: '',
-            // estado: '',
-            // numero: '',
-            // complemento: '',
-            // telefone: '',
-            // celular: '',
-            // email: '',
-            // senha: ''
-        // }
+        usuario: {},
+        minhasCompras: {}
       },
       created : function() {
         const vm = this;
         axios.get('../rs/usuario/getUser').then(function(response){
           vm.usuario =  response.data;
+          axios.post('../rs/venda/compras', vm.usuario).then(function(response){
+            vm.minhasCompras =  response.data;
+          });  
         });        
       },
       methods : {

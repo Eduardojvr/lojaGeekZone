@@ -8,10 +8,12 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import com.geekzone.entity.Categoria;
 import com.geekzone.entity.ItemVenda;
 import com.geekzone.entity.Usuario;
 import com.geekzone.entity.Venda;
 import com.geekzone.dao.ConnectionManager;
+import com.geekzone.dto.VendaDTO;
 
 public class VendaDAO {
 	public VendaDAO() {
@@ -104,6 +106,52 @@ public class VendaDAO {
 		}
 
 	}
+	
+	public ArrayList<VendaDTO> minhasCompras(Usuario user) throws Exception {
+		Connection db = ConnectionManager.getDBConnection();
+		ArrayList<VendaDTO> arrayList = new ArrayList<VendaDTO>();
+
+		PreparedStatement pstmt = null;
+		ResultSet result = null;
+
+		try {
+			pstmt = db.prepareStatement("select v.idVenda, v.cpfComprador, v.cepComprador, v.emailComprador, v.valorFrete, v.status, v.codRastreio,\n" + 
+					"i.idProduto, i.qtd, i.precoUnidade, p.nomeProduto, p.linkImg1\n" + 
+					" from venda v\n" + 
+					"	inner join item i\n" + 
+					"		on i.idVenda=v.idVenda\n" + 
+					"	inner join produto p\n" + 
+					"		on p.idProduto=i.idProduto\n" + 
+					"where v.cpfComprador='"+user.getCpf()+"';");
+			result = pstmt.executeQuery();
+
+			while (result.next()) {
+				VendaDTO venda = new VendaDTO();
+				venda.setCpfComprador(result.getString("cpfComprador"));				
+				venda.setEmailComprador(result.getString("emailComprador"));
+				venda.setValorUnidade(result.getString("precoUnidade"));
+				venda.setQtdComprada(result.getString("qtd"));
+				venda.setIdProduto(result.getString("idProduto"));
+				venda.setNomeProduto(result.getString("nomeProduto"));
+				venda.setCepComprador(result.getString("cepComprador"));
+				venda.setIdVenda(result.getString("idVenda"));
+				venda.setValorFrete(result.getString("valorFrete"));
+				venda.setStatus(result.getString("status"));
+				venda.setCodRastreio(result.getString("codRastreio"));
+				venda.setLinkImg1(result.getString("linkImg1"));
+				arrayList.add(venda);
+			}
+
+		} catch (Exception e) {
+			throw new Exception(e);
+		} finally {
+			if (pstmt != null)
+				pstmt.close();
+			db.close();
+		}
+		return arrayList;
+	}
+	
 
 
 }
