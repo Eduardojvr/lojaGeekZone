@@ -83,6 +83,9 @@ input{
   padding-left: 22%;
 }
 
+.inform{
+  color: cadetblue;
+}
 </style>
 
 </head>
@@ -90,6 +93,49 @@ input{
 <body>
   
   <div id="perfil">
+
+
+
+<div  style="overflow-y: auto;" data-keyboard="false" class="modal fade" id="info" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+aria-hidden="true" data-backdrop="static">
+<div class="modal-dialog modal-lg" role="document" style="font-family: pixel;">
+  <div class="modal-content">
+    <div class="modal-header d-flex justify-content-center" style="background-color:teal; font-family: pixel; color:whitesmoke; font-size: 28px;">
+      <div style="padding-left: 35%;">
+        <p class="heading">Informações</p>
+      </div>
+      <button type="button" class="close" data-dismiss="modal" style="text-align: right; color: whitesmoke;"
+          aria-label="Close" style="text-align: right; padding-right: 20px; padding-top: 10px;">
+        <span aria-hidden="true">×</span>
+      </button>
+    </div>
+    <div class="modal-body">
+            <div class="modal-body">
+              <!-- <div id="elemento" style="padding-left: 10%; padding-right: 10%;"> -->
+                <div style="border-style:none; padding: 10px; text-align: center;">
+                  <div class="img-prod" style="padding-left: 30px;">
+                    <img  class="im" v-bind:src="selecionado.linkImg1" alt="" style="height: 150px; width: 250;"><br>
+                  </div>
+                  <hr>
+                  <span style="padding-left: 15px; padding-top: 10px; text-align: justify;"> 
+                    <a style="color: #007bff; font-size: 25px;">{{ selecionado.nomeProduto }}</a> <br>
+                    <a >Identificador da venda: <span class="inform">{{ selecionado.idVenda }}</span> </a> <br> 
+                    <a >Quantidade comprada: <span class="inform">{{ selecionado.qtdComprada }}</spanclass="info"></a> <br> 
+                    <a >Cep de destino: <span class="inform">{{ selecionado.cepComprador }}</span> </a> <br> 
+                    <a >Valor do frete:<span class="inform"> R$ {{ selecionado.valorFrete }}</span> </a> <br> 
+                    <a >Valor un:<span class="inform"> R$ {{ selecionado.valorUnidade }} </span></a> <br> 
+                    <a >Email p/ informações: <span class="inform">{{ selecionado.emailComprador }}</span> </a> <br> 
+                    <a >Status:<span class="inform"> {{ selecionado.status }}</span></a> <br>
+                    <a >Rastreio: <span class="inform">{{ selecionado.codRastreio }}</span></a> <br>
+                    <a >Total pago:<span class="inform"> R$ {{ totalPago }}</a> <br>
+                  </span>
+                </div><br>
+                <!-- </div> -->
+            </div>
+    </div>
+  </div>
+</div>
+</div>
   <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-dark  fixed-top" style="padding: 10px; background-color: teal;">
     <div class="container">
@@ -129,7 +175,7 @@ input{
         <a class="nav-link " id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true" style="color: snow; font-family: pixel; font-size: 20px;">Meus dados</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false" style="color: snow; font-family: pixel; font-size: 20px;">Compras</a>
+        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false" style="color: snow; font-family: pixel; font-size: 20px;">Minhas compras</a>
       </li>
     </ul>
     <!-- <input  style="width: 400px; border-radius: 0px;" type="text" class="form-control" placeholder="O que você procura?"  aria-label="Username" aria-describedby="basic-addon1">
@@ -172,7 +218,7 @@ input{
             <div class="img-prod" style="padding-left: 35px;">
               <img  class="im" v-bind:src="item.linkImg1" alt="" style="height: 150px; width: 250px;"><br>
             </div>
-            <span style="padding-left: 15px; padding-top: 10px; max-width: 30%;"> 
+            <span style="padding-left: 15px; padding-top: 10px; max-width: 290px;"> 
               <a style="color: #007bff; font-size: 25px;">{{ item.nomeProduto }}</a> <br>
               <a >Quantidade comprada: {{ item.qtdComprada }} </a> <br> 
               <a >Valor un: R$ {{ item.valorUnidade }} </a> <br> 
@@ -181,14 +227,11 @@ input{
               <a >Rastreio: {{ item.codRastreio }}</a> <br>
             </span>
             <a style="padding-top: 5%; padding-left: 17%;">
-              <button type="button" style="background-color: #0069d9; border: none; border-radius: 0px; padding: 15px 50px 15px 50px;">Detalhes</button>
+              <button @click="informacao(item);"  type="button" style="background-color: #0069d9; border: none; border-radius: 0px; padding: 15px 50px 15px 50px;">Detalhes</button>
             </a>
           </div><br>
           </div>
         </div>
-
-
-
         </div>
       </div>
     </div>
@@ -214,7 +257,9 @@ input{
       el:'#perfil',
       data:{
         usuario: {},
-        minhasCompras: {}
+        minhasCompras: {},
+        selecionado: {},
+        totalPago: 0
       },
       created : function() {
         const vm = this;
@@ -233,6 +278,12 @@ input{
           }).catch(function(erro){
             alert("Erro ao realizar logout!");
           });
+        },
+        informacao: function(item){
+          const vm = this;
+          vm.selecionado = item;
+          vm.totalPago = (parseFloat(item.valorUnidade) * parseInt(item.qtdComprada)) + parseFloat(item.valorFrete);
+          $("#info").modal("show");
         }
       }
     });
