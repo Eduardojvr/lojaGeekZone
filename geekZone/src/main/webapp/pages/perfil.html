@@ -157,8 +157,8 @@ input{
                     <span class="atributo">📱</span><input class="dados" type="text" readonly v-bind:value="usuario.celular">
                 </div>
                 <div class="buttons" style="padding-top: 20px;">
-                  <button class="btn btn-primary" style="padding: 10px 23px 10px 23px;">Alterar dados</button>
-                  <button class="btn btn-primary" style="padding: 10px 23px 10px 23px;">Nova senha</button>
+                  <!-- <button class="btn btn-primary" style="padding: 10px 23px 10px 23px;">Alterar dados</button>
+                  <button class="btn btn-primary" style="padding: 10px 23px 10px 23px;">Nova senha</button> -->
                 </div>
             </div>
         </div>
@@ -241,26 +241,29 @@ input{
     new Vue({
       el:'#perfil',
       data:{
-        usuario: {
-            nomeCompleto: 'Eduardo Júnio Veloso Rodrigues',
-            cpf: '',
-            nascimento: '',
-            sexo: '',
-            cep: '',
-            cidade: '',
-            bairro: '',
-            estado: '',
-            numero: '',
-            complemento: '',
-            telefone: '61 3382-1519',
-            celular: '61 99812-5003',
-            email: 'eduardojvr10@gmail.com',
-            senha: ''
-        }
+        usuario: {}
+        // usuario: {
+           // nomeCompleto: '',
+            // cpf: '',
+            // nascimento: '',
+            // sexo: '',
+            // cep: '',
+            // cidade: '',
+            // bairro: '',
+            // estado: '',
+            // numero: '',
+            // complemento: '',
+            // telefone: '',
+            // celular: '',
+            // email: '',
+            // senha: ''
+        // }
       },
       created : function() {
         const vm = this;
-        
+        axios.get('../rs/usuario/getUser').then(function(response){
+          vm.usuario =  response.data;
+        });        
       },
       methods : {
         logout : function(){
