@@ -13,6 +13,7 @@ import javax.ws.rs.core.Response;
 
 import com.geekzone.dao.CategoriaDAO;
 import com.geekzone.dao.ProdutosDAO;
+import com.geekzone.dto.CarouselDTO;
 import com.geekzone.entity.Categoria;
 import com.geekzone.entity.Produto;
 import com.geekzone.entity.Usuario;
@@ -41,7 +42,21 @@ public class RESTProduto {
 			e.printStackTrace();
 		}
 		return Response.ok().entity(array).build();
-		
+
 	}
 
+	@GET
+	@Path("/carousel")
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response carousel() {
+		ProdutosDAO dao = new ProdutosDAO();
+		ArrayList <CarouselDTO> array = null;
+		try {
+			array = dao.carousel();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return Response.ok().entity(array).build();
+
+	}
 }

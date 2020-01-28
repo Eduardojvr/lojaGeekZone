@@ -386,28 +386,17 @@ aria-hidden="true" data-backdrop="static">
       <div class="col-lg-9">
 
         <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
-          <ol class="carousel-indicators">
-            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-          </ol>
           <div class="carousel-inner" role="listbox">
             <div class="carousel-item active">
-              <img class="d-block img-fluid" src="resources/img/c1.png" alt="First slide">
-            </div>
-            <div class="carousel-item">
-              <img class="d-block img-fluid" src="resources/img/c2.png" alt="Second slide">
-            </div>
-            <div class="carousel-item">
-              <img class="d-block img-fluid" src="resources/img/c3.png" alt="Third slide">
+              <img class="d-block img-fluid" v-bind:src="url">
             </div>
           </div>
-          <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <a class="carousel-control-prev" @click="anterior();" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true" ></span>
             <span class="sr-only">Previous</span>
           </a>
-          <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <a class="carousel-control-next" @click="proximo();"  role="button" data-slide="next">
+            <span class="carousel-control-next-icon"  aria-hidden="true"></span>
             <span class="sr-only">Next</span>
           </a>
         </div>
@@ -462,6 +451,7 @@ aria-hidden="true" data-backdrop="static">
       data:{
         categorias: [],
         itens: [],
+        carousel: [],
         selecionado:{},
       dadosFrete: {
           nCdEmpresa:"",
@@ -502,7 +492,11 @@ aria-hidden="true" data-backdrop="static">
         qtd: 0,
         totalProduto: 0,
         totalFreteProduto: 0,
-        quantidadeTmp: 1
+        quantidadeTmp: 1,
+        url: '',
+        totalCarousel: 0,
+        contador: 0
+
       },
       created : function() {
         const vm = this;
@@ -512,6 +506,13 @@ aria-hidden="true" data-backdrop="static">
 
         axios.get('rs/produto/todosProdutos').then(function(response){
           vm.itens = response.data;
+        });
+
+        axios.get('rs/produto/carousel').then(function(response){
+          vm.carousel = response.data;
+          vm.totalCarousel = vm.carousel.length;
+          vm.url = vm.carousel[0].url;
+          vm.time();
         });
 
         axios.get('rs/usuario/getUser').then(function(response){
@@ -525,6 +526,32 @@ aria-hidden="true" data-backdrop="static">
         });
       },
       methods : {
+        proximo: function(){
+          const vm = this;
+          vm.contador+=1;
+          if(vm.contador < vm.totalCarousel){
+            vm.url = vm.carousel[vm.contador].url;
+          } else if(vm.contador >= vm.totalCarousel){
+            vm.contador = 0;
+            vm.url = vm.carousel[vm.contador].url;
+          }
+        },
+        anterior: function(){
+          const vm = this;
+            vm.contador-=1;
+          if(vm.contador >= 0){
+            vm.url = vm.carousel[vm.contador].url;
+          } else if(vm.contador < 0){
+            vm.contador = vm.totalCarousel-1;
+            vm.url = vm.carousel[vm.contador].url;
+          }
+        },
+        time: function(){
+          const vm = this;
+          this.intervalid1 = setInterval(() => {
+            vm.proximo();
+          }, 10000);
+        },
         abreLoad : function(){
           const vm = this;
           $("#aguarde").modal("show");

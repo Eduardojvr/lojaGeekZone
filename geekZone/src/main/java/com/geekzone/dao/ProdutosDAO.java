@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+import com.geekzone.dto.CarouselDTO;
 import com.geekzone.entity.Categoria;
 import com.geekzone.entity.Produto;
 
@@ -39,6 +40,34 @@ public class ProdutosDAO {
 				 produto.setAltura(result.getString("altura")); 
 				 produto.setLargura(result.getString("largura")); 
 				 produto.setComprimento(result.getString("comprimento")); 
+				 arrayList.add(produto);
+			}
+
+		} catch (Exception e) {
+			throw new Exception(e);
+		} finally {
+			if (pstmt != null)
+				pstmt.close();
+			db.close();
+		}
+		return arrayList;
+	}
+	
+	public ArrayList<CarouselDTO> carousel() throws Exception {
+		Connection db = ConnectionManager.getDBConnection();
+		ArrayList<CarouselDTO> arrayList = new ArrayList<CarouselDTO>();
+
+		PreparedStatement pstmt = null;
+		ResultSet result = null;
+
+		try {
+			pstmt = db.prepareStatement("SELECT * FROM carousel order by id desc;");
+			result = pstmt.executeQuery();
+
+			while (result.next()) {
+				 CarouselDTO produto = new CarouselDTO();
+				 produto.setId(result.getString("id")); 
+				 produto.setUrl(result.getString("url")); 
 				 arrayList.add(produto);
 			}
 
